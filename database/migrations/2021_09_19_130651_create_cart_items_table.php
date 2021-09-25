@@ -1,12 +1,12 @@
 <?php
 
-use App\Models\Customer;
+use App\Models\Card;
+use App\Models\Product;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-
-class CreateCardsTable extends Migration
+class CreateCartItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,10 +15,12 @@ class CreateCardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cards', function (Blueprint $table) {
+        Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Customer::class)->constrained();
-            $table->int('price');
+            $table->foreignIdFor(Product::class)->constrained();
+            $table->foreignIdFor(Cart::class)->constrained();
+            $table->integer('count');
+            $table->integer('final_price');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateCardsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cards');
+        Schema::dropIfExists('card_items');
     }
 }
