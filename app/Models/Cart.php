@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Card extends Model
+class Cart extends Model
 {
     use HasFactory;
 
@@ -14,14 +14,14 @@ class Card extends Model
 
     ];
 
-    public function cardItems()
+    public function cartItems()
     {
-        return $this->hasMany(CardItem::class);
+        return $this->hasMany(CartItem::class);
     }
 
     public function customer()
     {
-        return $this->hasOne(Customer::class);
+        return $this->hasOne(User::class);
     }
 
     public function order()

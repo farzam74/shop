@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCustomerDiscountsTable extends Migration
+class CreateUserDiscountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateCustomerDiscountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('customer_discounts', function (Blueprint $table) {
+        Schema::create('user_discounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Customer::class)->constrained();
+            $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->foreignIdFor(\App\Models\Discount::class)->constrained();
             $table->timestamps();
         });

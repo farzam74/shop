@@ -15,8 +15,8 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Customer::class)->constrained();
-            $table->foreignIdFor(\App\Models\Card::class)->constrained();
+            $table->foreignIdFor(\App\Models\User::class)->constrained();
+            $table->foreignIdFor(\App\Models\Cart::class)->constrained();
             $table->integer('price');
             $table->string('status');
             $table->timestamps();

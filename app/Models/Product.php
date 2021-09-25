@@ -25,14 +25,15 @@ class Product extends Model
         'slug'
     ];
 
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
-    public function cardItems()
+    public function cartItems()
     {
-        return $this->hasMany(CardItem::class);
+        return $this->hasMany(CartItem::class);
     }
 
     public function category()
@@ -43,6 +44,11 @@ class Product extends Model
     public function attributes()
     {
         return $this->belongsToMany(Attribute::class);
+    }
+
+    public function productRates()
+    {
+        return $this->hasMany(ProductRate::class);
     }
 
 }

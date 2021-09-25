@@ -17,7 +17,7 @@ class CreateDiscountsTable extends Migration
             $table->id();
             $table->integer('discount');
             $table->dateTime('expire_time');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->timestamps();
         });
     }

@@ -15,9 +15,9 @@ class Discount extends Model
         'code',
     ];
 
-    public function customers()
+    public function users()
     {
-        return $this->belongsToMany(Customer::class);
+        return $this->belongsToMany(User::class);
     }
 }
 

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Card;
+use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -32,6 +32,6 @@ class CreateCartItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('card_items');
+        Schema::dropIfExists('cart_items');
     }
 }

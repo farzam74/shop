@@ -15,8 +15,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Admin::class)->constrained();
-            $table->foreignIdFor(\App\Models\Category::class)->constrained();
+            $table->foreignIdFor(\App\Models\Category::class);
             $table->tinyText('en_title');
             $table->tinyText('fa_title');
             $table->text('description');

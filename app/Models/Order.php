@@ -14,14 +14,14 @@ class Order extends Model
         'status',
     ];
 
-    public function customer()
+    public function user()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function card()
+    public function cart()
     {
-        return $this->hasOne(Card::class);
+        return $this->hasOne(Cart::class);
     }
 }
 
