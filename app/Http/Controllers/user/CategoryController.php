@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\user;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
-class UserController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users=User::all();
-
-        return view('users/index',compact('users'));
+        //
     }
 
     /**
@@ -27,7 +24,7 @@ class UserController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -47,9 +44,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        return view('users/show',compact('user'));
+        //
     }
 
     /**

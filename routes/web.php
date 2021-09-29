@@ -13,6 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
+
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
+
+Route::prefix('user')->group(function () {
+    Route::resource('products',\App\Http\Controllers\user\ProductController::class);
 });
