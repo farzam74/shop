@@ -46,7 +46,7 @@ class Product extends Model
         return $this->belongsToMany(Attribute::class);
     }
 
-    public function productRates()
+    public function rates()
     {
         return $this->hasMany(ProductRate::class);
     }

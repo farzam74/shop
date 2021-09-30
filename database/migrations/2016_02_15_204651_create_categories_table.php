@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->foreign('parent_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('set null');
             $table->integer('order')->default(1);
             $table->string('name');
+            $table->string('icon');
             $table->string('slug')->unique();
             $table->timestamps();
         });

@@ -16,12 +16,12 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Category::class);
+            $table->foreignIdFor(\App\Models\Attribute::class);
             $table->tinyText('en_title');
             $table->tinyText('fa_title');
             $table->text('description');
             $table->integer('price');
             $table->tinyInteger('discount');
-            $table->tinyInteger('rate');
             $table->integer('view_counter');
             $table->string('status');
             $table->json('other_atts');

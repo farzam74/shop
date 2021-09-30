@@ -3,49 +3,64 @@
 @section('content')
 
 
+{{--    <img src="{{asset('storage/sliders/0a8c2efe1b0b72a596f5992787e94161.png')}}" alt="">--}}
+
     <!-- banner -->
     <div class="row">
         <div class="col-12  order-1 order-lg-2">
-            <section id="main-slider" class="carousel slide carousel-fade card" data-ride="carousel">
+            <section id="main-slider" class="carousel slide carousel-fade card " data-ride="carousel">
                 <ol class="carousel-indicators">
-                    <li data-target="#main-slider" data-slide-to="0" class="active"></li>
-                    <li data-target="#main-slider" data-slide-to="1"></li>
-                    <li data-target="#main-slider" data-slide-to="2"></li>
-                    <li data-target="#main-slider" data-slide-to="3"></li>
+{{--                    <li data-target="#main-slider" data-slide-to="0" class="active"></li>--}}
+{{--                    <li data-target="#main-slider" data-slide-to="1"></li>--}}
+{{--                    <li data-target="#main-slider" data-slide-to="2"></li>--}}
+{{--                    <li data-target="#main-slider" data-slide-to="3"></li>--}}
+                    @php
+                        $flag=true;
+                    @endphp
+
+                    @for($i=0;$i<count($sliders);$i++)
+
+                        <li data-target="#main-slider" data-slide-to="{{$i}}" class="{{($flag ? 'active' : '')}}"></li>
+                        {{$flag=false}}
+
+                    @endfor
                 </ol>
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <a class="d-block" href="#">
-                            <img src="assets/img/slider/22f48d8e-6a8f-431c-985d-76ab0e1e59405_21_1_1.jpg"
-                                 class="d-block w-100" alt="">
-                        </a>
-                    </div>
-                    <div class="carousel-item">
-                        <a class="d-block" href="#">
-                            <img src="assets/img/slider/a264d696-9c12-4dd9-bdc1-12c13a3632b329_21_1_1.jpg"
-                                 class="d-block w-100" alt="">
-                        </a>
-                    </div>
-                    <div class="carousel-item">
-                        <a class="d-block" href="#">
-                            <img src="assets/img/slider/c0a50594-df40-412b-84f8-c7d6872fb83620_21_1_1.jpg"
-                                 class="d-block w-100" alt="">
-                        </a>
-                    </div>
-                    <div class="carousel-item">
-                        <a class="d-block" href="#">
-                            <img src="assets/img/slider/d1844e92-e5a9-4aef-8ea7-49be936422ca6_21_1_1.jpg"
-                                 class="d-block w-100" alt="">
-                        </a>
-                    </div>
+
+{{--                    <div class="carousel-item active">--}}
+{{--                        <a class="d-block" href="#">--}}
+{{--                            <img src="{{asset("storage/sliders/$slider->image")}}"--}}
+{{--                                 class="d-block w-100" alt="{{$slider->alt}}">--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
+
+                    @php
+                        $flag=true;
+                    @endphp
+                    @foreach($sliders as $slider)
+
+                        <div class="carousel-item {{($flag ? 'active' : '')}}">
+                            <a class="d-block" href="{{$slider->link}}">
+                                <img src="{{asset("storage/sliders/$slider->image")}}"
+                                     class="d-block w-100" alt="{{$slider->alt}}">
+                            </a>
+                        </div>
+                        {{$flag=false}}
+
+                    @endforeach
+
                 </div>
                 <a class="carousel-control-prev" href="#main-slider" role="button" data-slide="prev">
                     <i class="now-ui-icons arrows-1_minimal-right"></i>
                 </a>
-                <a class="carousel-control-next" href="#main-slider" data-slide="next">
+                <a class="carousel-control-next" href="#main-slider" role="button" data-slide="next">
                     <i class="now-ui-icons arrows-1_minimal-left"></i>
                 </a>
             </section>
+
+
+
+
             <section id="amazing-slider" class="carousel slide carousel-fade card" data-ride="carousel">
                 <div class="row m-0">
                     <ol class="carousel-indicators pr-0 d-flex flex-column col-lg-3">
@@ -1054,5 +1069,13 @@
             </div>
         </div>
     </div>
+
+<!--   JS & Bootstrap CDN   -->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 @endsection

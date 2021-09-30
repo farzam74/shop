@@ -2,46 +2,51 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class user extends Model
+class User extends \TCG\Voyager\Models\User
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
+ /**
+ * The attributes that are mass assignable.
+ *
+ * @var string[]
+ */
     protected $fillable = [
-
-        'fullname',
+        'name',
         'email',
         'password',
-        'phone',
-        'postal_code',
-        'address'
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
     ];
 
 
-    public function comments()
+    public function rates()
     {
-        return $this->hasMany(Comment::class);
-    }
-
-    public function discounts()
-    {
-        return $this->belongsToMany(Discount::class);
-    }
-
-    public function cart()
-    {
-        return $this->hasOne(Cart::class);
-    }
-
-    public function orders()
-    {
-        return $this->hasMany(Order::class);
-    }
-
-    public function productRate()
-    {
-        return $this->hasOne(ProductRate::class);
+        return $this->hasMany(Rate::class);
     }
 }
+
+
