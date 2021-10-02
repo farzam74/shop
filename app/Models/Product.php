@@ -51,4 +51,9 @@ class Product extends Model
         return $this->hasMany(ProductRate::class);
     }
 
+    public function amazingOffer()
+    {
+        return $this->hasOne(AmazingOffer::class);
+    }
+
 }
