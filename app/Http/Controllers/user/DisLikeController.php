@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
+use App\Models\Dislike;
+use App\Models\Like;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class DisLikeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-
+        //
     }
 
     /**
@@ -36,7 +37,17 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $comment_id=$request->comment_id;
+        $user_id=auth()->user()->id;
+
+        //check if user has disliked this comment before
+        $result=Dislike::query()->where('comment_id','=',$comment_id)->where('user_id','=',$user_id)->first();
+        if($result == null){
+            Dislike::query()->create(compact('comment_id','user_id'));
+            return back();
+        }
+
+        return back()->with('disliked','شما قبلا این کامنت را دیسلایک کرده اید.');
     }
 
     /**

@@ -5,6 +5,10 @@
 
 
 
+<main class="main default">
+    <div class="container">
+
+
 
     <!-- banner -->
     <div class="row">
@@ -81,7 +85,7 @@
                         @forelse($amazingOffers as $amazingOffer)
 
                         <div class="carousel-item {{($loop->index ==0 ? 'active' : '')}}">
-                            <div class="row m-0">
+                            <main class="row m-0">
                                 <div class="right-col col-5 d-flex align-items-center">
                                     <a class="w-100 text-center" href="#">
                                         <img src="{{asset('storage/'.$amazingOffer->product->primary_img)}}"
@@ -101,11 +105,15 @@
 
                                     <ul>
 
-                                        @foreach($amazingOffer->product->attributes()->get() as $attribute)
+                                        @foreach($amazingOffer->product->attributes as $attribute)
 
                                             <li class="d-flex justify-content-start">
                                                 {{$attribute->attribute()->first()->key}}: {{$attribute->attribute()->first()->value}}
                                             </li>
+
+                                            @if($loop->index==1)
+                                                @break
+                                            @endif
 
                                         @endforeach
 
@@ -120,14 +128,75 @@
                                 </div>
                                 <div class="timer-title">زمان باقی مانده تا پایان سفارش</div>
                                 </div>
-                                </div>
-                                </div>
+                                </main>
+
 
                                 @empty
 
                                 هیچ پیشنهاد شگفت انگیزی در حال حاضر وجود ندارد!
 
                                 @endforelse
+
+                        </div>
+                        asfafgsdeباذیبادیبدتییییییییییییی
+        </div>
+
+    </div>
+
+            </section>
+        </div>
+    </div>
+
+    <div class="row">
+            <div class="col-12">
+                <div class="widget widget-product card">
+                    <header class="card-header">
+                        <h3 class="card-title">
+                            <span>کامپیوتر و لوازم جانبی</span>
+                        </h3>
+                        <a href="#" class="view-all">مشاهده همه</a>
+                    </header>
+
+                    <div class="product-carousel owl-carousel owl-theme row">
+
+                        @forelse($categories as $category)
+                        @if($category->parentCategory != null)
+                        <div class="item col">
+                            <a href="#">
+                                <img src="assets/img/product-slider/60eb20-200x200.jpg"
+                                     class="img-fluid" alt="">
+                            </a>
+                            <h2 class="post-title">
+                                <a href="#">لپ تاپ ۱۱٫۶ اینچی دل مدل INSPIRON 3168 -AC B</a>
+                            </h2>
+                            <div class="price">
+                                <div class="text-center">
+                                    <del><span>4,299,000<span>تومان</span></span></del>
+                                </div>
+                                <div class="text-center">
+                                    <ins><span>4,180,000<span>تومان</span></span></ins>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                        @if($loop->index==4)
+                            @break
+                        @endif
+                        @empty
+
+                        @endforelse
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</main>
+
 @endsection
 {{--
 </div>

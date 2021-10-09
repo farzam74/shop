@@ -20,6 +20,7 @@ class User extends \TCG\Voyager\Models\User
     protected $fillable = [
         'name',
         'email',
+        'avatar',
         'password',
     ];
 
@@ -47,6 +48,18 @@ class User extends \TCG\Voyager\Models\User
     {
         return $this->hasMany(Rate::class);
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function dislikes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+
 }
 
 

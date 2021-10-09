@@ -21,8 +21,7 @@ class Product extends Model
         'category_id',
         'other_atts',
         'primary_img',
-        'other_img',
-        'slug'
+        'other_img'
     ];
 
 
@@ -43,7 +42,7 @@ class Product extends Model
 
     public function attributes()
     {
-        return $this->belongsToMany(Attribute::class);
+        return $this->hasMany(ProductAttribute::class);
     }
 
     public function rates()
@@ -55,5 +54,6 @@ class Product extends Model
     {
         return $this->hasOne(AmazingOffer::class);
     }
+
 
 }

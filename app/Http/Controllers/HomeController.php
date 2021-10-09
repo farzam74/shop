@@ -14,11 +14,9 @@ class HomeController extends Controller
     {
         $sliders=Slider::all();
         $amazingOffers=AmazingOffer::all();
-        $categories=Category::all();
 
 
         return view('index')->with('sliders',$sliders)
-            ->with('amazingOffers',$amazingOffers)
-            ->with('categories',$categories);
+            ->with('amazingOffers',$amazingOffers);
     }
 }
