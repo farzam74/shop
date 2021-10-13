@@ -33,6 +33,7 @@ Route::prefix('user')->group(function () {
 });
 
 Route::resource('products',\App\Http\Controllers\ProductController::class);
+Route::resource('categories',\App\Http\Controllers\CategoryController::class);
 
 Route::get('product/comments/sortbylike',[\App\Http\Controllers\ProductController::class,'sortByLike'])->name('comments.sortbylike');
 Route::get('product/comments/sortbydate',[\App\Http\Controllers\ProductController::class,'sortByDate'])->name('comments.sortbydate');

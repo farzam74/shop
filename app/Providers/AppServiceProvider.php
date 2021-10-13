@@ -34,6 +34,10 @@ class AppServiceProvider extends ServiceProvider
         Voyager::useModel('Category', \App\Models\Category::class);
         Voyager::useModel('User', \App\Models\User::class);
 
+
+
+
+
         $categories=Category::all();
 
         View::share('categories',$categories);

@@ -17,9 +17,8 @@
             {{--      sliders section      --}}
 
             <section id="main-slider" class="carousel slide carousel-fade card " data-ride="carousel">
+
                 <ol class="carousel-indicators">
-
-
 
                     @for($i=0;$i<count($sliders);$i++)
 
@@ -31,14 +30,16 @@
 
 
                     @foreach($sliders as $slider)
-
+                        @if($slider != null)
                         <div class="carousel-item {{($loop->index ==0 ? 'active' : '')}}">
-                            <a class="d-block" href="{{$slider->link}}">
-                                <img src="{{asset("storage/sliders/$slider->image")}}"
-                                     class="d-block w-100" alt="{{$slider->alt}}">
+
+                            <a class="d-flex justify-content-center" href="{{route('products.show',['product' => $slider->id])}}">
+                                <img src="{{asset("storage/$slider->primary_img")}}"
+                                     class="d-block w-50 " alt="{{$slider->name}}" height="400px">
+
                             </a>
                         </div>
-
+                        @endif
 
                     @endforeach
 
@@ -51,7 +52,7 @@
                 </a>
             </section>
 
-
+            @if(count($amazingOffers)>0)
             {{--       amazing offers section     --}}
 
             <section id="amazing-slider" class="carousel slide carousel-fade card" data-ride="carousel">
@@ -143,43 +144,54 @@
     </div>
 
             </section>
+            @endif
         </div>
     </div>
 
+     @if($category->parentCategory()->first() == null)
+         @forelse($innermostCategories as $innermost)
     <div class="row">
             <div class="col-12">
                 <div class="widget widget-product card">
                     <header class="card-header">
                         <h3 class="card-title">
-                            <span>دسته بندی ها</span>
+                            <span>{{$innermost->name}}</span>
                         </h3>
-
+                        <a href="{{route('categories.show',['category' => $innermost->id])}}" class="view-all">مشاهده همه</a>
                     </header>
 
                     <div class="product-carousel owl-carousel owl-theme row">
 
-                        @forelse($mainCategoriesProducts as $product)
+                        @forelse($innermost->products as $product)
 
                         <div class="item col">
-                            @if($product[0]->icon != null)
-                            <a href="{{route('categories.show',['category' => $product[0]->id])}}">
-                                <img src="{{'storage/'.$product[0]->icon}}"
-                                     class="img-fluid" alt="" style="height: 200px">
-                                <h2 class="post-title">
-                                   {{$product[0]->name}}
-                                </h2>
-                                <span>
-                                    {{count($product[1])}}کالا
-                                </span>
+                            <a href="#">
+                                <img src="{{asset('storage/'.$product->primary_img)}}"
+                                     class="img-fluid" alt="" width="150px" height="150px">
                             </a>
+                            <h2 class="post-title">
+                                <a href="#">{{$product->fa_title}}</a>
+                            </h2>
+                            <div class="price">
+                        @if($product->discount != 0)
+                                <div class="text-center">
 
-                            @endif
-
-
-
+                                        <del><span>{{$product->price}}<span>تومان</span></span></del>
+                                </div>
+                                <div class="text-center">
+                                    <ins><span>{{$product->price - ($product->price*($product->discount/100))}}<span>تومان</span></span></ins>
+                                </div>
+                        @else
+                                <div class="text-center">
+                                    <ins><span>{{$product->price}}<span>تومان</span></span></ins>
+                                </div>
+                        @endif
+                            </div>
                         </div>
 
-
+                        @if($loop->index==4)
+                            @break
+                        @endif
                         @empty
 
                         @endforelse
@@ -189,7 +201,14 @@
                 </div>
             </div>
         </div>
+            @empty
 
+            @endforelse
+        @endif
+
+     @if($category->products()->first() != null)
+
+     @endif
 
     </div>
 

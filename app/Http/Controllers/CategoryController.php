@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use  App\Traits\ProductsOfMainCategoryTrait;
 
 class CategoryController extends Controller
 {
+    use ProductsOfMainCategoryTrait;
     /**
      * Display a listing of the resource.
      *
@@ -46,7 +48,82 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+
+        //define sliders of product of subcategories of this category
+
+        $sliders=[];
+
+
+        $categories=Category::all();
+
+        //get all subcategories of this category
+        $thisCategories=$this->getNestedSubCategories($categories,$category);
+
+
+        //array of the categories that haven't any child
+        $innermostCategories=$this->getInnermostCategories($thisCategories);
+
+
+        //get all products of innermost categories
+        $products=$this->getProductsOfCategories($innermostCategories);
+
+
+        //get random 4 products of innermost categories to show in sliders
+        if(count($innermostCategories)>=4){
+
+            $keys=array_rand($innermostCategories,4);
+            foreach ($keys as $key){
+
+                if($innermostCategories[$key]->products()->get()->shuffle()->first() != null)
+                {
+                    array_push($sliders,$innermostCategories[$key]->products()->get()->shuffle()->first());
+                }
+            }
+
+
+        }
+
+
+        else{
+
+                    //get 4 random product to show in sliders if products are more than 4
+                    if(count($products)>=4){
+                        shuffle($products);
+
+                        for($i=0;$i<4;$i++){
+                            $sliders[]=$products[$i];
+                        }
+                    }
+
+                    //get all products if products are less than 4
+                    else{
+                       $sliders=$products;
+                    }
+
+
+            }
+
+
+
+
+
+        $amazingOffers=[];
+
+        foreach ($products as $product){
+            if($product->amazingOffer()->first() != null){
+                array_push($amazingOffers,$product->amazingOffer()->first());
+            }
+        }
+
+
+
+        return view('category')
+            ->with('category',$category)
+            ->with('sliders',$sliders)
+            ->with('amazingOffers',$amazingOffers)
+            ->with('innermostCategories',$innermostCategories);
+
+
     }
 
     /**

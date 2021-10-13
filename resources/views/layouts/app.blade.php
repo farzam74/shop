@@ -377,19 +377,19 @@
                     @foreach($categories as $category)
                         @if($category->parent_id == null)
                         <li class="list-item list-item-has-children mega-menu mega-menu-col-5">
-                        <a class="nav-link" href="#">{{$category->name}} </a>
+                        <a class="nav-link" href="{{route('categories.show',['category' => $category->id])}}">{{$category->name}} </a>
                         <ul class="sub-menu nav">
 
                             @forelse($category->subCategories as $subCategory)
 
                                 <li class="list-item list-item-has-children">
                                     <i class="now-ui-icons arrows-1_minimal-left"></i>
-                                    <a class="main-list-item nav-link" href="#">{{$subCategory->name}}</a>
+                                    <a class="main-list-item nav-link" href="{{route('categories.show',['category' => $subCategory->id])}}">{{$subCategory->name}}</a>
                                     <ul class="sub-menu nav">
 
                                         @forelse($subCategory->subCategories as $grandSubCategory)
                                             <li class="list-item">
-                                                <a class="nav-link" href="#">{{$grandSubCategory->name}}</a>
+                                                <a class="nav-link" href="{{route('categories.show',['category' => $grandSubCategory->id])}}">{{$grandSubCategory->name}}</a>
                                             </li>
                                         @empty
 
