@@ -133,23 +133,27 @@
                                     </div>
 
                                     <div class="price-product defualt">
-                                        <div class="price-value">
+                                        @if($product->amazingOffer()->exists() || $product->discount>0)
+                                        <div class="price-value text-muted">
                                             <del>
                                                 {{$product->price}}
                                             </del>
                                         </div>
+                                        @endif
 
                                         <div class="price-value">
 
                                     {{--  calculate price with self discount and amazing offer discount--}}
-                                            <span> {{($product->price)-($product->price)*(($product->amazingOffer()->first()->discount ?? 0)+$product->discount)/100}} </span>
+                                            <span> {{$product->getFinalPrice()}} </span>
                                             <span class="price-currency">تومان</span>
                                         </div>
+                                        @if($product->amazingOffer()->exists() || $product->discount>0)
                                         <div class="price-discount">
                                             <span>
-                                                {{($product->amazingOffer()->first() != null) ? ($product->amazingOffer()->first()->discount.'% تخفیف شگفت انگیز+') : ''}}{{'%'.$product->discount}}
+                                                {{($product->amazingOffer()->exists()) ? ($product->amazingOffer->discount.'% تخفیف شگفت انگیز+') : ''}}{{'%'.$product->discount}}
                                             </span>
                                         </div>
+                                        @endif
                                     </div>
                                     <div class="product-add default">
                                         <div class="parent-btn">
@@ -234,13 +238,13 @@
                                     </ul>
                                     <div class="card-body default">
                                         <!-- Tab panes -->
-                                        <div class="tab-content">
+                                        <div class="tab-content d-flex justify-content-start">
                                             <div class="tab-pane active" id="desc" role="tabpanel" aria-expanded="true">
                                                 <article>
                                                     <h2 class="param-title">
                                                         نقد و بررسی تخصصی
 
-                                                        <span>{{$product->category()->first()->name}} {{$product->fa_title}}</span>
+                                                        <span>{{$product->category->name}} {{$product->fa_title}}</span>
 
                                                     </h2>
                                                     <di>
@@ -319,6 +323,7 @@
                                                             @endforelse
 
                                                         </ol>
+{{--                                                        {{$comments->links()}}--}}
                                                     </div>
                                                 </article>
                                             </div>

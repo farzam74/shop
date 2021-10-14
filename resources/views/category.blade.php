@@ -165,6 +165,7 @@
                         @forelse($innermost->products as $product)
 
                         <div class="item col">
+
                             <a href="#">
                                 <img src="{{asset('storage/'.$product->primary_img)}}"
                                      class="img-fluid" alt="" width="150px" height="150px">
@@ -209,6 +210,52 @@
      @if($category->products()->first() != null)
 
      @endif
+
+{{--        {{dd($products)}}--}}
+        @if($products->count()>0)
+        <div class="d-flex justify-content-center mt-50 mb-50">
+            <div class="row">
+                @foreach($products as $product)
+
+                <div class="col{{$products->count()>2 ? '-md-4' : '' }}mt-2">
+                    <div class="card product-card">
+                        <div class="card-body">
+                            <div class="card-img-actions "> <img src="{{\Illuminate\Support\Facades\Storage::url($product->primary_img)}}" class="card-img grid-img" width="96" height="350" alt="">
+                                @if($product->amazingOffer()->exists())
+                                <div>
+                                    <img src="{{\Illuminate\Support\Facades\Storage::url('amazing.jpg')}}" class="amazing-logo" alt="">
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="card-body bg-light text-center">
+                            <div class="mb-2">
+                                <h6 class="font-weight-semibold mb-2"> <a href="{{route('products.show',[$product])}}" class="text-default mb-2" data-abc="true">{{$product->fa_title}}</a> </h6> <a href="#" class="text-muted" data-abc="true">{{$product->category->name}}</a>
+                            </div>
+                            <div class="text-muted mb-2">
+                               <b >
+                                   رنگ:
+                               </b>
+                                {{$product->getColor()}}
+                            </div>
+                            @if($product->amazingOffer()->exists() || $product->discount>0)
+                                <del>
+                                    {{$product->price}} تومان
+                                </del>
+                            @endif
+                            <h6 class="mb-0 font-weight-semibold">{{$product->getFinalPrice()}} تومان</h6>
+                            <div> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> </div>
+                            <div class="text-muted mb-3">34 reviews</div> <button type="button" class="btn bg-cart"><i class="fa fa-cart-plus mr-2"></i> Add to cart</button>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                {{$products->links()}}
+            </div>
+        </div>
+        @endif
+    </div>
+
 
     </div>
 

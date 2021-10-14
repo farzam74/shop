@@ -50,7 +50,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $category=$product->category()->first();
+
+        $category=$product->category;
 
 
         $gallery=json_decode($product->other_img);
@@ -58,7 +59,7 @@ class ProductController extends Controller
         //primary attributes makes from pivot table:
         $attributes=[];
         foreach ($product->attributes as $attribute){
-            $attributes[][$attribute->attribute()->first()->key]=$attribute->attribute()->first()->value;
+            $attributes[][$attribute->attribute->key]=$attribute->attribute->value;
         }
 
         // to insert value of duplicate keys like color in one array element:
@@ -85,18 +86,20 @@ class ProductController extends Controller
         }
         $otherAttsP=substr($otherAttsP,1);
 
+
     if (Session::exists('sortComments')) {
         if (Session::get('sortComments') == 'likes') {
             $comments = Comment::with('likes')->get()->sortByDesc(function ($comment) {
                 return $comment->likes->count();
-            });
-            $comments = $comments->where('status', '=', 'approved')->where('product_id', '=', $product->id);
+            }) ->where('status', '=', 'approved')->where('product_id', '=', $product->id);
+
         }
     }
     else
     {
-        $comments=Comment::query()->latest()->get();
-        $comments=$comments->where('status','=','approved')->where('product_id','=',$product->id);
+        $comments=$product->comments()->latest()->where('status','=','approved')->paginate();
+
+
 
     }
 

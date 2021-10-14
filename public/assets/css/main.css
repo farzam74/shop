@@ -1,3 +1,4 @@
+
 @font-face {
     font-family: iranyekan;
     font-style: normal;
@@ -6916,6 +6917,21 @@ main.profile-user-page .responsive-profile-menu .dropdown-menu a i {
 
 .slider-img{
     height: 400px;
+}
+
+
+.grid-img{
+    width: auto; /* You can set the dimensions to whatever you want */
+    height: 150px;
+}
+
+.product-card{
+    height: 500px;
+}
+
+.amazing-logo{
+    width: auto;
+    height: 50px;
 }
 
 /* responsive */

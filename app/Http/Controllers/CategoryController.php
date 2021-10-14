@@ -116,12 +116,14 @@ class CategoryController extends Controller
         }
 
 
+        $products=$category->products()->paginate();
 
         return view('category')
             ->with('category',$category)
             ->with('sliders',$sliders)
             ->with('amazingOffers',$amazingOffers)
-            ->with('innermostCategories',$innermostCategories);
+            ->with('innermostCategories',$innermostCategories)
+            ->with('products',$products);
 
 
     }

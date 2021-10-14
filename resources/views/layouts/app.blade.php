@@ -21,6 +21,7 @@
     <link href={{asset('assets/css/plugins/owl.carousel.css')}} rel="stylesheet"/>
     <link href={{asset('assets/css/plugins/owl.theme.default.min.css')}} rel="stylesheet"/>
     <link href={{asset('assets/css/main.css')}} rel="stylesheet"/>
+    <link rel="stylesheet" href="{{asset('css/product.css')}}">
 </head>
 
 <body class="index-page sidebar-collapse">

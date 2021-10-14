@@ -55,5 +55,30 @@ class Product extends Model
         return $this->hasOne(AmazingOffer::class);
     }
 
+    public function getFinalPrice(){
+        if($this->amazingOffer()->exists()){
+            return $this->price-(($this->amazingOffer->discount+$this->discount)/100)*$this->price;
+        }
+        else{
+            return $this->price-($this->discount/100)*$this->price;
+        }
+    }
+
+    public function getColor(){
+
+        $colors='';
+
+        foreach ($this->attributes()->get() as $productAttribute){
+            if ($productAttribute->attribute->key == 'رنگ'){
+                $hasColor=true;
+                $colors=$colors.",".$productAttribute->attribute->value;
+            }
+        }
+
+        $colors=substr($colors,1);
+
+        return $colors;
+    }
+
 
 }
