@@ -144,7 +144,7 @@
                                         <div class="price-value">
 
                                     {{--  calculate price with self discount and amazing offer discount--}}
-                                            <span> {{$product->getFinalPrice()}} </span>
+                                            <span> {{$product->getFinalPriceAttribute()}} </span>
                                             <span class="price-currency">تومان</span>
                                         </div>
                                         @if($product->amazingOffer()->exists() || $product->discount>0)

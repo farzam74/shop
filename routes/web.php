@@ -17,9 +17,9 @@ use App\Http\Controllers\admin\CommentController;
 
 Route::get('/',[\App\Http\Controllers\HomeController::class,'index']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//});
 
 
 
@@ -28,8 +28,11 @@ Route::group(['prefix' => 'admin'], function () {
 
 });
 
-Route::prefix('user')->group(function () {
+Route::prefix('user')->middleware('auth')->group(function () {
 
+     Route::get('profile/index', [\App\Http\Controllers\user\ProfileController::class,'index'] )->name('profile.index');
+     Route::get('profile/changepassword',[\App\Http\Controllers\user\ProfileController::class,'changePassword'])->name('profile.changepassword');
+     Route::patch('profile/changepassword',[\App\Http\Controllers\user\ProfileController::class,'changePasswordStore'])->name('profile.changepassword.store');
 });
 
 Route::resource('products',\App\Http\Controllers\ProductController::class);
@@ -38,14 +41,20 @@ Route::resource('categories',\App\Http\Controllers\CategoryController::class);
 Route::get('product/comments/sortbylike',[\App\Http\Controllers\ProductController::class,'sortByLike'])->name('comments.sortbylike');
 Route::get('product/comments/sortbydate',[\App\Http\Controllers\ProductController::class,'sortByDate'])->name('comments.sortbydate');
 
-Route::post('comments/store',[\App\Http\Controllers\user\CommentController::class,'store'])
-    ->name('comments.store')->middleware('auth');
+Route::group([
+    'middleware' => 'auth'
+],function (){
 
-Route::get('likes/store',[\App\Http\Controllers\user\LikeController::class,'store'])
-    ->name('likes.store')->middleware('auth');
+    Route::post('comments/store',[\App\Http\Controllers\user\CommentController::class,'store'])
+        ->name('comments.store');
 
-Route::get('dislikes/store',[\App\Http\Controllers\user\DisLikeController::class,'store'])
-    ->name('dislikes.store')->middleware('auth');
+    Route::get('likes/store',[\App\Http\Controllers\user\LikeController::class,'store'])
+        ->name('likes.store');
+
+    Route::get('dislikes/store',[\App\Http\Controllers\user\DisLikeController::class,'store'])
+        ->name('dislikes.store');
+});
+
 
 
 Auth::routes();

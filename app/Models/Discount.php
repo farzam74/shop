@@ -19,5 +19,10 @@ class Discount extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function product()
+    {
+        return $this->hasOne(Product::class);
+    }
 }
 

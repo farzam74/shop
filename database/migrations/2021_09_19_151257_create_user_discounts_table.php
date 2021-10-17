@@ -28,6 +28,6 @@ class CreateUserDiscountsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customer_discounts');
+        Schema::dropIfExists('user_discounts');
     }
 }

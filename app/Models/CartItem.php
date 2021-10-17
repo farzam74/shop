@@ -12,7 +12,6 @@ class CartItem extends Model
     protected $fillable = [
 
         'count',
-        'final_price'
 
     ];
 
@@ -25,7 +24,12 @@ class CartItem extends Model
 
     public function cart()
     {
-        return $this->hasOne(Cart::class);
+        return $this->belongsTo(Cart::class);
 
+    }
+
+    public function getPriceAttribute()
+    {
+        return $this->product->getFinalPriceAttribute()*$this->count;
     }
 }

@@ -306,7 +306,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
                                     <div class="dropdown-item">
-                                        <a class="btn btn-info" href="#">مشاهده حساب کاربری</a>
+                                        <a class="btn btn-info" href="{{route('profile.index')}}">مشاهده حساب کاربری</a>
                                     </div>
                                     <div class="dropdown-item font-weight-bold">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
@@ -330,16 +330,14 @@
                             سبد خرید
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+                            @if(auth()->user()->cart()->exists())
                             <div class="basket-header">
                                 <div class="basket-total">
                                     <span>مبلغ کل خرید:</span>
-                                    <span> ۲۳,۵۰۰</span>
+
+                                    <span> {{auth()->user()->cart->getPriceAttribute() }}</span>
                                     <span> تومان</span>
                                 </div>
-                                <a href="#" class="basket-link">
-                                    <span>مشاهده سبد خرید</span>
-                                    <div class="basket-arrow"></div>
-                                </a>
                             </div>
                             <ul class="basket-list">
                                 <li>
@@ -350,7 +348,7 @@
                                                 <img alt="" src="assets/img/cart/2324935.jpg">
                                             </div>
                                             <div class="basket-item-details">
-                                                <div class="basket-item-title">هندزفری بلوتوث مدل S530
+                                                <div class="basket-item-title">{{auth()->user()->cart->cartItems()->first()->product->fa_title}}
                                                 </div>
                                                 <div class="basket-item-params">
                                                     <div class="basket-item-props">
@@ -359,11 +357,17 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </a>
                                 </li>
                             </ul>
+
                             <a href="#" class="basket-submit">ورود و ثبت سفارش</a>
+                            @else
+                                <div class="basket-header text-center" >سبد خرید خالی است!</div>
+                            @endif
+
                         </ul>
                     </div>
                 @endauth
@@ -420,12 +424,10 @@
         </nav>
     </header>
     <!-- header -->
-    <main>
 
+{{--    {{dd(auth()->user()->cart())}}--}}
             @yield('content')
 
-        </div>
-    </main>
 
 
     <footer class="main-footer default">

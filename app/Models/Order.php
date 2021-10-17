@@ -10,8 +10,8 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'price',
         'status',
+        'user_id'
     ];
 
     public function user()
@@ -23,5 +23,7 @@ class Order extends Model
     {
         return $this->hasOne(Cart::class);
     }
+
+
 }
 

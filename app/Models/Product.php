@@ -21,7 +21,8 @@ class Product extends Model
         'category_id',
         'other_atts',
         'primary_img',
-        'other_img'
+        'other_img',
+        'capacity'
     ];
 
 
@@ -55,7 +56,12 @@ class Product extends Model
         return $this->hasOne(AmazingOffer::class);
     }
 
-    public function getFinalPrice(){
+    public function discountCode()
+    {
+        return $this->hasOne(Discount::class);
+    }
+
+    public function getFinalPriceAttribute(){
         if($this->amazingOffer()->exists()){
             return $this->price-(($this->amazingOffer->discount+$this->discount)/100)*$this->price;
         }
@@ -64,7 +70,7 @@ class Product extends Model
         }
     }
 
-    public function getColor(){
+    public function getColorAttribute(){
 
         $colors='';
 

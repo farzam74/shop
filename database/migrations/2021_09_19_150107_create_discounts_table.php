@@ -15,9 +15,10 @@ class CreateDiscountsTable extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->integer('discount');
+            $table->integer('value');
             $table->dateTime('expire_time');
             $table->string('code')->unique();
+            $table->foreignIdFor(\App\Models\Product::class);
             $table->timestamps();
         });
     }

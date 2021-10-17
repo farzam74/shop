@@ -59,7 +59,10 @@ class User extends \TCG\Voyager\Models\User
         return $this->hasMany(Like::class);
     }
 
-
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
 }
 
 

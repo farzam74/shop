@@ -236,17 +236,18 @@
                                <b >
                                    رنگ:
                                </b>
-                                {{$product->getColor()}}
+                                {{$product->getColorAttribute()}}
                             </div>
                             @if($product->amazingOffer()->exists() || $product->discount>0)
                                 <del>
                                     {{$product->price}} تومان
                                 </del>
                             @endif
-                            <h6 class="mb-0 font-weight-semibold">{{$product->getFinalPrice()}} تومان</h6>
+                            <h6 class="mb-0 font-weight-semibold">{{$product->getFinalPriceAttribute()}} تومان</h6>
                             <div> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> </div>
                             <div class="text-muted mb-3">34 reviews</div> <button type="button" class="btn bg-cart"><i class="fa fa-cart-plus mr-2"></i> Add to cart</button>
                         </div>
+
                     </div>
                 </div>
                 @endforeach
