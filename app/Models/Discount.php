@@ -13,6 +13,7 @@ class Discount extends Model
         'amount',
         'expire_date',
         'code',
+        'product_id'
     ];
 
     public function users()

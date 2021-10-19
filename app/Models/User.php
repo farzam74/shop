@@ -22,6 +22,8 @@ class User extends \TCG\Voyager\Models\User
         'email',
         'avatar',
         'password',
+        'address',
+        'phone'
     ];
 
     /**
@@ -62,6 +64,11 @@ class User extends \TCG\Voyager\Models\User
     public function cart()
     {
         return $this->hasOne(Cart::class);
+    }
+
+    public function discountCodes()
+    {
+        return $this->belongsToMany(Discount::class);
     }
 }
 

@@ -8,8 +8,6 @@
 <main class="main default">
     <div class="container">
 
-
-
     <!-- banner -->
     <div class="row">
         <div class="col-12  order-1 order-lg-2">
@@ -211,7 +209,6 @@
 
      @endif
 
-{{--        {{dd($products)}}--}}
         @if($products->count()>0)
         <div class="d-flex justify-content-center mt-50 mb-50">
             <div class="row">
@@ -243,9 +240,9 @@
                                     {{$product->price}} تومان
                                 </del>
                             @endif
-                            <h6 class="mb-0 font-weight-semibold">{{$product->getFinalPriceAttribute()}} تومان</h6>
+                            <h6 class="mb-0 font-weight-semibold">{{number_format($product->getFinalPriceAttribute())}} تومان</h6>
                             <div> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> </div>
-                            <div class="text-muted mb-3">34 reviews</div> <button type="button" class="btn bg-cart"><i class="fa fa-cart-plus mr-2"></i> Add to cart</button>
+                            <div class="text-muted mb-3">34 reviews</div>
                         </div>
 
                     </div>

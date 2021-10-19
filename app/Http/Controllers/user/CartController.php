@@ -1,12 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\user;
 
-use App\Models\CartItem;
+use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class CartItemController extends Controller
+
+class CartController extends Controller
 {
+
+
+    public function add(Request $request)
+    {
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -41,10 +50,10 @@ class CartItemController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\CartItem  $cartItem
+     * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function show(CartItem $cartItem)
+    public function show(Cart $cart)
     {
         //
     }
@@ -52,10 +61,10 @@ class CartItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\CartItem  $cartItem
+     * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function edit(CartItem $cartItem)
+    public function edit(Cart $cart)
     {
         //
     }
@@ -64,10 +73,10 @@ class CartItemController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CartItem  $cartItem
+     * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CartItem $cartItem)
+    public function update(Request $request, Cart $cart)
     {
         //
     }
@@ -75,10 +84,10 @@ class CartItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\CartItem  $cartItem
+     * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CartItem $cartItem)
+    public function destroy(Cart $cart)
     {
         //
     }

@@ -22,6 +22,8 @@
     <link href={{asset('assets/css/plugins/owl.theme.default.min.css')}} rel="stylesheet"/>
     <link href={{asset('assets/css/main.css')}} rel="stylesheet"/>
     <link rel="stylesheet" href="{{asset('css/product.css')}}">
+
+    </script>
 </head>
 
 <body class="index-page sidebar-collapse">
@@ -323,6 +325,7 @@
                          @endauth
                     </div>
 
+{{--                    {{dd(auth()->user()->cart->cartItems()->get())}}--}}
                 @auth
                     <div class="cart dropdown d-flex justify-content-start">
                         <a href="#" class="btn dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenuLink1">
@@ -330,12 +333,12 @@
                             سبد خرید
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-                            @if(auth()->user()->cart()->exists())
+                            @if(auth()->user()->cart()->exists() && auth()->user()->cart()->first()->cartItems()->exists() )
                             <div class="basket-header">
                                 <div class="basket-total">
                                     <span>مبلغ کل خرید:</span>
 
-                                    <span> {{auth()->user()->cart->getPriceAttribute() }}</span>
+                                    <span> {{number_format(auth()->user()->cart->getPriceAttribute()) }}</span>
                                     <span> تومان</span>
                                 </div>
                             </div>
@@ -345,25 +348,32 @@
                                         <button class="basket-item-remove"></button>
                                         <div class="basket-item-content">
                                             <div class="basket-item-image">
-                                                <img alt="" src="assets/img/cart/2324935.jpg">
+                                                <img alt="" src="{{url('storage/'.auth()->user()->cart->cartItems()->first()->product->primary_img)}}">
                                             </div>
                                             <div class="basket-item-details">
                                                 <div class="basket-item-title">{{auth()->user()->cart->cartItems()->first()->product->fa_title}}
                                                 </div>
                                                 <div class="basket-item-params">
                                                     <div class="basket-item-props">
-                                                        <span> ۱ عدد</span>
-                                                        <span>رنگ مشکی</span>
+                                                        <span> {{auth()->user()->cart->cartItems()->first()->count}} عدد</span>
+                                                        @if(auth()->user()->cart->cartItems()->first()->color != null)
+                                                        <span>رنگ {{auth()->user()->cart->cartItems()->first()->color}}</span>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
 
                                         </div>
+                                        @if(auth()->user()->cart->cartItems()->count()>1)
+                                       <div class="basket-item-title text-center">
+                                            و {{auth()->user()->cart->cartItems()->count()-1}} محصول دیگر
+                                       </div>
+                                        @endif
                                     </a>
                                 </li>
                             </ul>
 
-                            <a href="#" class="basket-submit">ورود و ثبت سفارش</a>
+                            <a href="#" class="basket-submit">نمایش همه</a>
                             @else
                                 <div class="basket-header text-center" >سبد خرید خالی است!</div>
                             @endif
@@ -630,6 +640,9 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<!-- Add sweetalert CDN -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 

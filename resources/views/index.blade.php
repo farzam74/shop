@@ -87,7 +87,7 @@
                         <div class="carousel-item {{($loop->index ==0 ? 'active' : '')}}">
                             <main class="row m-0">
                                 <div class="right-col col-5 d-flex align-items-center">
-                                    <a class="w-100 text-center" href="#">
+                                    <a class="w-100 text-center" href="{{route('products.show',[$amazingOffer->product])}}">
                                         <img src="{{asset('storage/'.$amazingOffer->product->primary_img)}}"
                                              class="img-fluid" alt="">
                                     </a>
@@ -99,7 +99,7 @@
                                         <span class="discount-percent">{{$amazingOffer->discount}} % تخفیف</span>
                                     </div>
                                     <h2 class="product-title">
-                                        <a href="#">{{$amazingOffer->product->category->name}} {{$amazingOffer->product->fa_title}}</a>
+                                        <a href="{{route('products.show',[$amazingOffer->product])}}">{{$amazingOffer->product->category->name}} {{$amazingOffer->product->fa_title}}</a>
                                     </h2>
 
 

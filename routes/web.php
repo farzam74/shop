@@ -33,6 +33,7 @@ Route::prefix('user')->middleware('auth')->group(function () {
      Route::get('profile/index', [\App\Http\Controllers\user\ProfileController::class,'index'] )->name('profile.index');
      Route::get('profile/changepassword',[\App\Http\Controllers\user\ProfileController::class,'changePassword'])->name('profile.changepassword');
      Route::patch('profile/changepassword',[\App\Http\Controllers\user\ProfileController::class,'changePasswordStore'])->name('profile.changepassword.store');
+     Route::post('cart/item/add',[\App\Http\Controllers\user\CartItemController::class,'store'])->name('cartitem.store');
 });
 
 Route::resource('products',\App\Http\Controllers\ProductController::class);

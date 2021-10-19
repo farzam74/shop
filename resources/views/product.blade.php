@@ -102,7 +102,9 @@
 
 
 
-                                    <form action="" method="post">
+                                    <form action="{{route('cartitem.store')}}" method="post">
+                                        @csrf
+
                                     <div class="product-variants default">
 
 
@@ -110,17 +112,19 @@
 
                                         <div class="radio">
 
+                                            @if($product->getColorAttribute() != '')
+                                                <input type="hidden" name="color" value="notfilled">
+                                            @endif
                                         @foreach($attributes as $attribute)
 
                                             @if(array_key_exists('رنگ',$attribute))
-                                            <input type="radio" name="radio1" id="radio{{$loop->index}}" value="{{$attribute['رنگ']}}">
+                                            <input type="radio" name="color" id="radio{{$loop->index}}" value="{{$attribute['رنگ']}}">
                                             <label for="radio{{$loop->index}}">
                                                 {{$attribute['رنگ']}}
                                             </label>
-
                                             @endif
-
                                         @endforeach
+
 
                                         </div>
 
@@ -144,7 +148,7 @@
                                         <div class="price-value">
 
                                     {{--  calculate price with self discount and amazing offer discount--}}
-                                            <span> {{$product->getFinalPriceAttribute()}} </span>
+                                            <span> {{number_format($product->getFinalPriceAttribute())}} </span>
                                             <span class="price-currency">تومان</span>
                                         </div>
                                         @if($product->amazingOffer()->exists() || $product->discount>0)
@@ -157,12 +161,19 @@
                                     </div>
                                     <div class="product-add default">
                                         <div class="parent-btn">
-                                            <button  type="submit" class="dk-btn dk-btn-info" type="submit">
+                                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                                            <button  type="submit" class="dk-btn dk-btn-info">
 
                                                 افزودن به سبد خرید
 
                                             </button>
                                         </div>
+                                        <div class="m-3 form-group">
+                                            <label for="number-input">تعداد: </label>
+                                            <input type="number" name="count" style="width: 50px" id="number-input">
+                                        </div>
+
+
                                     </div>
 
                                 </form>
@@ -353,5 +364,40 @@
                 </div>
             </div>
         </main>
+
+            <script>
+                @if(session('error'))
+                document.addEventListener("DOMContentLoaded",function ($event){
+                    swal.fire({
+                        title: 'عدم موجودی!',
+                        icon: 'error',
+                        text: '{{session('error')}}',
+                        confirmButtonText: 'OK'
+                    })
+                });
+                @endif
+
+                @if(session('success'))
+                document.addEventListener("DOMContentLoaded",function ($event){
+                    swal.fire({
+                        title: 'موفقیت!',
+                        icon: 'success',
+                        text: '{{session('success')}}',
+                        confirmButtonText: 'OK'
+                    })
+                });
+                @endif
+
+                @if(session('warning'))
+                document.addEventListener("DOMContentLoaded",function ($event){
+                    swal.fire({
+                        title: 'انتخاب رنگ!',
+                        icon: 'warning',
+                        text: '{{session('warning')}}',
+                        confirmButtonText: 'OK'
+                    })
+                });
+                @endif
+            </script>
 
     @endsection

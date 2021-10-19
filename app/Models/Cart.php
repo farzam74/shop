@@ -23,11 +23,6 @@ class Cart extends Model
         return $this->hasOne(User::class);
     }
 
-    public function order()
-    {
-        return $this->hasOne(Order::class);
-    }
-
     public function getPriceAttribute()
     {
         $totalPrice=0;
