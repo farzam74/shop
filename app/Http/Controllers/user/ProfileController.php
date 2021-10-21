@@ -7,6 +7,7 @@ use App\Http\Requests\StorePasswordRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use MongoDB\Driver\Session;
 
 class ProfileController extends Controller
 {
@@ -40,6 +41,37 @@ class ProfileController extends Controller
 
         return back()->with('message','پسورد شما با موفقیت تغییر یافت.');
 
+    }
+
+    public function updatePostalCode(Request $request){
+
+        $user=auth()->user();
+        $postal=$request->validate(['postal_code' => 'required|regex:/^\d{10}$/']);
+        $user->postal_Code=$postal['postal_code'];
+        $user->save();
+
+        return back();
+    }
+
+    public function updateAddress(Request $request){
+
+        $user=auth()->user();
+        $address=$request->validate([
+            'province' => 'required',
+            'address' => 'required']);
+
+        $user->address=" استان ".$address['province'].",".$address['address'];
+        $user->save();
+
+        return back();
+
+    }
+
+    public function editAddress()
+    {
+        \Illuminate\Support\Facades\Session::flash('editAddress','true');
+
+        return back();
     }
 
 

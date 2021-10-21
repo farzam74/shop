@@ -388,16 +388,29 @@
                 });
                 @endif
 
-                @if(session('warning'))
+                @if(session('warning-color'))
                 document.addEventListener("DOMContentLoaded",function ($event){
                     swal.fire({
                         title: 'انتخاب رنگ!',
                         icon: 'warning',
-                        text: '{{session('warning')}}',
+                        text: '{{session('warning-color')}}',
+                        confirmButtonText: 'OK'
+                    })
+                });
+                @endif
+
+                @if(session('warning-number'))
+                document.addEventListener("DOMContentLoaded",function ($event){
+                    swal.fire({
+                        title: 'ورودی نامعتبر!',
+                        icon: 'warning',
+                        text: '{{session('warning-number')}}',
                         confirmButtonText: 'OK'
                     })
                 });
                 @endif
             </script>
+
+
 
     @endsection

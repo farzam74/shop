@@ -42,8 +42,13 @@ class CartItemController extends Controller
         $requestCount=(int)($request->count??1);
 
         if($request->color == 'notfilled' ){
-            return back()->with('warning','لطفا رنگ مورد نظر را انتخاب کنید.');
+            return back()->with('warning-color','لطفا رنگ مورد نظر را انتخاب کنید.');
         }
+
+        if ($requestCount<1){
+            return back()->with('warning-number','لطفا عددی معتبر وارد کنید.');
+        }
+
 
         $product=Product::find($request->product_id);
 
@@ -85,7 +90,7 @@ class CartItemController extends Controller
 
         else {
             $cartItem =
-                ['count' => $request->count,
+                ['count' => $request->count??1,
                     'product_id' => $product->id,
                     'cart_id' => auth()->user()->cart->id];
 

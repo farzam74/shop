@@ -14,14 +14,14 @@
 
     <title>Digikala</title>
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" href={{asset('assets/fonts/font-awesome/css/font-awesome.min.css')}} />
+    <link rel="stylesheet" href="{{asset('assets/fonts/font-awesome/css/font-awesome.min.css')}}" />
     <!-- CSS Files -->
-    <link href={{asset('assets/css/bootstrap.min.css')}} rel="stylesheet"/>
-    <link href={{asset('assets/css/now-ui-kit.css')}} rel="stylesheet"/>
-    <link href={{asset('assets/css/plugins/owl.carousel.css')}} rel="stylesheet"/>
-    <link href={{asset('assets/css/plugins/owl.theme.default.min.css')}} rel="stylesheet"/>
-    <link href={{asset('assets/css/main.css')}} rel="stylesheet"/>
-    <link rel="stylesheet" href="{{asset('css/product.css')}}">
+    <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet"/>
+    <link href="{{asset('assets/css/now-ui-kit.css')}}" rel="stylesheet"/>
+    <link href="{{asset('assets/css/plugins/owl.carousel.css')}}"" rel="stylesheet"/>
+    <link href="{{asset('assets/css/plugins/owl.theme.default.min.css')}}" rel="stylesheet"/>
+    <link href="{{asset('assets/css/main.css')}}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{asset('css/product.css')}}"/>
 
     </script>
 </head>
@@ -344,7 +344,7 @@
                             </div>
                             <ul class="basket-list">
                                 <li>
-                                    <a href="#" class="basket-item">
+                                    <a href="{{route('cart.index')}}" class="basket-item">
                                         <button class="basket-item-remove"></button>
                                         <div class="basket-item-content">
                                             <div class="basket-item-image">
