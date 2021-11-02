@@ -20,7 +20,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="shopping-payment.html">
+                                <a href="factor.blade.php">
                                     <span>پرداخت</span>
                                 </a>
                             </li>
@@ -72,9 +72,9 @@
 
                                                         <form action="{{route('profile.postalcode.update')}}" method="post">
                                                             @csrf
-                                                            <div class="form-group row">
-                                                                <input type="text" name="postal_code" placeholder="کد پستی" class="col-6 form-check">
-                                                                <button type="submit" class="btn btn-primary col-3 form-control">ثبت</button>
+                                                            <div class="form-group row cart-form">
+                                                                <input type="text" name="postal_code" placeholder="کد پستی" class="cartinput">
+                                                                <button type="submit" class="cartbutton btn-form-primary">ثبت</button>
                                                             </div>
 
                                                         </form>
@@ -145,7 +145,7 @@
 {{--                                    <a class="checkout-contact-location">تغییر آدرس ارسال</a>--}}
                                 </div>
                             </div>
-                            <form method="post" id="shipping-data-form">
+                            <div id="shipping-data-form">
                                 <div class="headline">
                                     <span>محصولات</span>
                                 </div>
@@ -155,8 +155,8 @@
                                             <div class="row">
 
 {{--                                                {{dd()}}--}}
-                                                @forelse(auth()->user()->cart->cartItems()->get() as $cartItem)
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                                                @forelse(auth()->user()->cart->cartItems as $key => $cartItem)
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 m-3 border">
                                                         <div class="product-box-container">
                                                             <div class="product-box product-box-compact">
                                                                 <a class="product-box-img">
@@ -167,116 +167,25 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <livewire:cart.counter :cartItem="$cartItem" :count="$cartItem->count" :product="$cartItem->product" :cartItemPrices="$cartItemPrices" :index="$key"/>
                                                     </div>
+
                                                 @empty
                                                 @endforelse
 
                                             </div>
                                         </div>
+{{--                                        {{var_dump(strtotime(auth()->user()->discountCodes()->first()->expire_time))}}--}}
+                                    <livewire:cart.discount-code />
                                     </section>
-                                    <div class="row">
-                                        <div class="checkout-time-table checkout-time-table-time">
-                                            <span class="checkout-additional-options-checkbox-image"></span>
-                                            <div>
-                                                <div
-                                                    class="checkout-time-table-title-bar checkout-time-table-title-bar-city">
-                                                    بازه تحویل سفارش: زمان تقریبی تحویل از
-                                                    <span>۱۳ خرداد</span>
-                                                    تا
-                                                    <span>۲۰ خرداد</span></div>
-                                                <ul class="checkout-time-table-subtitle-bar">
-                                                    <li>شیوه ارسال : پست پیشتاز با ظرفیت اختصاصی برای دیجی کالا</li>
-                                                    <li>هزینه ارسال:
-                                                        <span class="">رایگان</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-                                <div class="headline">
-                                    <span>صدور فاکتور</span>
-                                </div>
-                                <div class="checkout-invoice">
-                                    <div class="checkout-invoice-headline">
-                                        <div class="form-account-agree">
-                                            <label class="checkbox-form checkbox-primary">
-                                                <input type="checkbox" checked="checked" id="agree">
-                                                <span class="checkbox-check"></span>
-                                            </label>
-                                            <label for="agree">درخواست ارسال فاکتور خرید</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                            </div>
                         </section>
                     </div>
                     <aside class="cart-page-aside col-xl-3 col-lg-4 col-md-6 center-section order-2">
                         <div class="checkout-aside">
                             <div class="checkout-summary">
-                                <div class="checkout-summary-main">
-                                    <ul class="checkout-summary-summary">
-                                        <li><span>مبلغ کل (۱ کالا)</span><span>۱۵,۳۹۰,۰۰۰ تومان</span></li>
-                                        <li>
-                                            <span>هزینه ارسال</span>
-                                            <span>وابسته به آدرس<span class="wiki wiki-holder"><span
-                                                        class="wiki-sign"></span>
-                                                    <div class="wiki-container js-dk-wiki is-right">
-                                                        <div class="wiki-arrow"></div>
-                                                        <p class="wiki-text">
-                                                            هزینه ارسال مرسولات می‌تواند وابسته به شهر و آدرس گیرنده
-                                                            متفاوت باشد. در
-                                                            صورتی که هر
-                                                            یک از مرسولات حداقل ارزشی برابر با ۱۰۰هزار تومان داشته باشد،
-                                                            آن مرسوله
-                                                            بصورت رایگان
-                                                            ارسال می‌شود.<br>
-                                                            "حداقل ارزش هر مرسوله برای ارسال رایگان، می تواند متغیر
-                                                            باشد."
-                                                        </p>
-                                                    </div>
-                                                </span></span>
-                                        </li>
-                                    </ul>
-                                    <div class="checkout-summary-devider">
-                                        <div></div>
-                                    </div>
-                                    <div class="checkout-summary-content">
-                                        <div class="checkout-summary-price-title">مبلغ قابل پرداخت:</div>
-                                        <div class="checkout-summary-price-value">
-                                            <span class="checkout-summary-price-value-amount">{{number_format(auth()->user()->cart->getPriceAttribute())}}</span>تومان
-                                        </div>
-                                        <a href="#" class="selenium-next-step-shipping">
-                                            <div class="parent-btn">
-                                                <button class="dk-btn dk-btn-info">
-                                                    ادامه ثبت سفارش
-                                                    <i class="now-ui-icons shopping_basket"></i>
-                                                </button>
-                                            </div>
-                                        </a>
-                                        <div>
-                                            <span>
-                                                کالاهای موجود در سبد شما ثبت و رزرو نشده‌اند، برای ثبت سفارش مراحل بعدی
-                                                را تکمیل
-                                                کنید.
-                                            </span>
-                                            <span class="wiki wiki-holder"><span class="wiki-sign"></span>
-                                                <div class="wiki-container is-right">
-                                                    <div class="wiki-arrow"></div>
-                                                    <p class="wiki-text">
-                                                        محصولات موجود در سبد خرید شما تنها در صورت ثبت و پرداخت سفارش
-                                                        برای شما رزرو
-                                                        می‌شوند. در
-                                                        صورت عدم ثبت سفارش، دیجی کالا هیچگونه مسئولیتی در قبال تغییر
-                                                        قیمت یا موجودی
-                                                        این کالاها
-                                                        ندارد.
-                                                    </p>
-                                                </div>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+                              <livewire:cart.price :price="auth()->user()->cart->getPriceAttribute()" :cartItemPrices="$cartItemPrices" />
                             </div>
                             <div class="checkout-feature-aside">
                                 <ul>
@@ -301,6 +210,19 @@
         <!-- main-shopping -->
 
     </div>
+
+    <script>
+        @if(session('capacity'))
+        document.addEventListener("DOMContentLoaded",function ($event){
+            swal.fire({
+                title: 'عدم موجودی!',
+                icon: 'error',
+                text: '{{session('capacity')}}',
+                confirmButtonText: 'OK'
+            })
+        });
+    @endif
+    </script>
 
 @endsection
 

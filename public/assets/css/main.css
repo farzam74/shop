@@ -4950,7 +4950,7 @@ main.profile-user-page .responsive-profile-menu .dropdown-menu a i {
     text-align: center;
 }
 
-.shopping-page .checkout-time-table-time {
+.shopping-page .checkout-discount-table {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -4962,7 +4962,7 @@ main.profile-user-page .responsive-profile-menu .dropdown-menu a i {
     justify-content: flex-start;
 }
 
-.shopping-page .checkout-time-table {
+.shopping-page .checkout-discount-table {
     padding: 18px;
     width: 100%;
 }
@@ -6936,6 +6936,41 @@ main.profile-user-page .responsive-profile-menu .dropdown-menu a i {
 
 .form-address{
     height: 80px;
+}
+
+.cart-form *{
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 3px;
+    border-radius: 8px;
+    font-size: 20px;
+    -webkit-appearance: none;
+}
+
+.cartinput {
+    border: 1px solid lightgray;
+}
+
+.cartbutton {
+    border: 1px solid transparent;
+    font-size: 15px;
+    border-radius: 8px;
+    background-color: #00bfd6;
+    color: #fff;
+    font-weight: 700;
+    padding: 10px 20px;
+    font-family: inherit;
+}
+
+.btn-form-primary{
+    font-size: 15px;
+    border-radius: 8px;
+    background-color: #00bfd6;
+    border: 1px solid #148693;
+    color: #fff;
+    font-weight: 700;
+    padding: 10px 20px;
+    font-family: inherit;
 }
 
 /* responsive */

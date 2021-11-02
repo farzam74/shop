@@ -17,6 +17,10 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->enum('status',['pending','paid','approved','sent','delivered']);
+            $table->enum('payment_type',['cash','online']);
+            $table->integer('price');
+            $table->json('info');
+            $table->string('transaction_id');
             $table->timestamps();
         });
     }

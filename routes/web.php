@@ -33,11 +33,16 @@ Route::prefix('user')->middleware('auth')->group(function () {
      Route::get('profile/index', [\App\Http\Controllers\user\ProfileController::class,'index'] )->name('profile.index');
      Route::get('profile/changepassword',[\App\Http\Controllers\user\ProfileController::class,'changePassword'])->name('profile.changepassword');
      Route::patch('profile/changepassword',[\App\Http\Controllers\user\ProfileController::class,'changePasswordStore'])->name('profile.changepassword.store');
+
      Route::post('cart/item/add',[\App\Http\Controllers\user\CartItemController::class,'store'])->name('cartitem.store');
      Route::get('cart',[\App\Http\Controllers\user\CartController::class,'index'])->name('cart.index');
+     Route::post('cart/factor',[\App\Http\Controllers\user\CartController::class,'factor'])->name('cart.factor');
+
      Route::post('profile/updatepostalcode',[\App\Http\Controllers\user\ProfileController::class,'updatePostalCode'])->name('profile.postalcode.update');
      Route::post('profile/updateaddress',[\App\Http\Controllers\user\ProfileController::class,'updateAddress'])->name('profile.address.update');
      Route::get('profile/address/edit',[\App\Http\Controllers\user\ProfileController::class,'editAddress'])->name('profile.address.edit');
+
+     Route::post('orders',[\App\Http\Controllers\user\OrderController::class,'store'])->name('orders.store');
 
 });
 
