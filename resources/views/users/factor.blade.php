@@ -146,6 +146,8 @@
                                                                         <div class="text-center text-muted">
                                                                             {{$item->count}} عدد
                                                                         </div>
+
+{{--                                                                        {{dd($item->price*$item->count)}}--}}
                                                                         @if( $item->price == $cartItemPrices[$key]->price)
                                                                         <div class="text-center text-danger">
 
@@ -157,7 +159,7 @@
                                                                                 {{ $item->price}} تومان
                                                                             </del>
                                                                             <div class="text-danger">
-                                                                                {{$cartItemPrices[$key]->price}} تومان
+                                                                                {{$cartItemPrices[$key]->price*$item->count}} تومان
                                                                             </div>
                                                                         </div>
                                                                        @endif

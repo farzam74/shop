@@ -323,8 +323,8 @@
 
                                                                         <p>{{$comment->content}}</p>
 
-                                                                        <span class="ml-2"><a class="comment-reply-link" href="{{route('likes.store',['comment_id'=>$comment->id])}}"><i class="fa fa-thumbs-up"></i></a> {{count($comment->likes)}}</span>
-                                                                        <span class="mr-2"><a class="comment-reply-link" href="{{route('dislikes.store',['comment_id'=>$comment->id])}}"><i class="fa fa-thumbs-down"></i></a> {{count($comment->dislikes)}}</span>
+                                                                    <livewire:comments.like :comment="$comment" :likeCount="count($comment->likes)" :dislikeCount="count($comment->dislikes)" />
+
                                                                     </div>
                                                                 </li>
                                                                 <!-- #comment-## -->
