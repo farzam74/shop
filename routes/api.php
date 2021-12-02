@@ -18,4 +18,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('products',\App\Http\Controllers\API\ProducAPIController::class);
+Route::apiResource('products',\App\Http\Controllers\API\ProductAPIController::class);
+
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+],function (){
+
+    Route::post('/login',[\App\Http\Controllers\API\AuthAPIController::class,'login']);
+    Route::post('/register',[\App\Http\Controllers\API\AuthAPIController::class,'register']);
+    Route::post('/logout',[\App\Http\Controllers\API\AuthAPIController::class,'logout']);
+    Route::post('/user-profile',[\App\Http\Controllers\API\AuthAPIController::class,'userProfile']);
+    Route::post('/refresh',[\App\Http\Controllers\API\AuthAPIController::class,'refresh']);
+
+});

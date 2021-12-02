@@ -42,7 +42,7 @@ class CartController extends Controller
         $cartItems=auth()->user()->cart->cartItems()->get();
 
 
-        return view('users.factor')
+        return view('users.cart-factor')
             ->with('price',$price)
             ->with('postalPrice',$postalPrice)
             ->with('cartItems',$cartItems)

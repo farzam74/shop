@@ -21,7 +21,7 @@
                                 </a>
                             </li>
                             <li class="active">
-                                <a href="factor.blade.php" class="active">
+                                <a href="cart-factor.blade.php" class="active">
                                     <span>پرداخت</span>
                                 </a>
                             </li>
@@ -260,5 +260,21 @@
         <!-- main-shopping -->
 
     </div>
+
+
+    <script>
+
+        @if(session('error'))
+        document.addEventListener("DOMContentLoaded",function ($event){
+            swal.fire({
+                title: 'خطا!',
+                icon: 'error',
+                text: '{{session('error')}}',
+                confirmButtonText: 'OK'
+            })
+        });
+        @endif
+
+    </script>
 
 @endsection

@@ -14,7 +14,8 @@ class Order extends Model
         'user_id',
         'payment_type',
         'info',
-        'price'
+        'price',
+        'transaction_id'
     ];
 
     public function user()

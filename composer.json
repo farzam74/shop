@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "evryn/laravel-toman": "^2.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "jantinnerezo/livewire-alert": "^2.1",
@@ -15,6 +16,7 @@
         "laravel/ui": "^3.3",
         "livewire/livewire": "^2.7",
         "tcg/voyager": "^1.5",
+        "tymon/jwt-auth": "^1.0",
         "ybazli/faker": "^1.0"
     },
     "require-dev": {

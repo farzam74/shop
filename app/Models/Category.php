@@ -32,4 +32,12 @@ class Category extends \TCG\Voyager\Models\Category
     {
         return $this->hasMany(Category::class,'parent_id','id');
     }
+
+    public function hasParent()
+    {
+        if($this->parentCategory()->exists()){
+            return true;
+        }
+        return false;
+    }
 }

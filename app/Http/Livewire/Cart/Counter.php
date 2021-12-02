@@ -23,7 +23,7 @@ class Counter extends Component
 
     public function increment()
     {
-        if( $this->count <= $this->product->capacity){
+        if( $this->count < $this->product->capacity){
 
             $this->count++;
             $this->cartItem->count++;

@@ -4899,6 +4899,14 @@ main.profile-user-page .responsive-profile-menu .dropdown-menu a i {
     padding: 30px 12px 46px;
 }
 
+#delete-logo {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 10px;
+    width: 10px;
+}
+
 .shopping-page .product-box-compact {
     padding: 10px;
 }

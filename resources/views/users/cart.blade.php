@@ -20,7 +20,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="factor.blade.php">
+                                <a href="cart-factor.blade.php">
                                     <span>پرداخت</span>
                                 </a>
                             </li>
@@ -158,7 +158,10 @@
                                                 @forelse(auth()->user()->cart->cartItems as $key => $cartItem)
                                                     <div class="col-lg-3 col-md-4 col-sm-6 col-12 m-3 border">
                                                         <div class="product-box-container">
-                                                            <div class="product-box product-box-compact">
+                                                            <div class="product-box product-box-compact ">
+                                                                <a href="{{route('cartitem.delete',$cartItem)}}">
+                                                                    <img src="{{url('storage/delete.png')}}" height="20px" width="20px" id="delete-logo" alt="">
+                                                                </a>
                                                                 <a class="product-box-img">
                                                                     <img src="{{url('storage/'.$cartItem->product->primary_img)}}">
                                                                 </a>
