@@ -4,6 +4,7 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePasswordRequest;
+use App\Http\Requests\UpdateAvatarRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -73,6 +74,21 @@ class ProfileController extends Controller
 
         return back();
     }
+
+
+
+    public function updateAvatar(UpdateAvatarRequest $request)
+    {
+        $fileName=time().'_'.$request->validated()['avatar']->getClientOriginalName();
+        $filePath=$request->validated()['avatar']->storeAs('users',$fileName,'public');
+
+        auth()->user()->avatar=$filePath;
+        auth()->user()->save();
+
+        return back()->with('success','عکس پروفایل شما با موفقیت تغییر یافت.');
+
+    }
+
 
 
     /**

@@ -49,55 +49,29 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="profile-page-aside col-xl-3 col-lg-4 col-md-6 center-section order-1">
                     <div class="profile-box">
                         <div class="profile-box-header">
                             <div class="profile-box-avatar">
-                                <img src="assets/img/svg/user.svg" alt="">
+                                <img src="{{asset('storage/'.auth()->user()->avatar)}}" alt="">
                             </div>
-                            <button data-toggle="modal" data-target="#myModal" class="profile-box-btn-edit">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                            <!-- Modal Core -->
-                            <div class="modal-share modal-width-custom modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel">تغییر نمایه کاربری شما</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <ul class="profile-avatars default text-center">
-                                                <li>
-                                                    <img class="profile-avatars-item" src="assets/img/svg/user.svg"></img>
-                                                </li>
-                                                <li>
-                                                    <img class="profile-avatars-item" src="assets/img/svg/avatar-1.svg"></img>
-                                                </li>
-                                                <li>
-                                                    <img class="profile-avatars-item" src="assets/img/svg/avatar-2.svg"></img>
-                                                </li>
-                                                <li>
-                                                    <img class="profile-avatars-item" src="assets/img/svg/avatar-3.svg"></img>
-                                                </li>
-                                                <li>
-                                                    <img class="profile-avatars-item" src="assets/img/svg/avatar-4.svg"></img>
-                                                </li>
-                                                <li>
-                                                    <img class="profile-avatars-item" src="assets/img/svg/avatar-5.svg"></img>
-                                                </li>
-                                                <li>
-                                                    <img class="profile-avatars-item" src="assets/img/svg/avatar-6.svg"></img>
-                                                </li>
-                                                <li>
-                                                    <img class="profile-avatars-item" src="assets/img/svg/avatar-7.svg"></img>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Modal Core -->
+
+
+
+                            <form action="{{route('profile.avatar.update')}}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                @method('patch')
+                                <label class="profile-box-btn-edit" for="file-upload">
+                                    <i class="fa fa-pencil">
+                                    </i>
+                                </label>
+
+                                <input type="file" name="avatar" id="file-upload" onchange="this.form.submit()" style="display: none">
+
+                            </form>
+
+
                         </div>
                         <div class="profile-box-username">{{auth()->user()->name}}</div>
                         <div class="profile-box-tabs">
@@ -117,10 +91,7 @@
                                 </form>
                             </a>
 
-{{--                            <a href="" class="profile-box-tab profile-box-tab--sign-out">--}}
-{{--                                <i class="now-ui-icons media-1_button-power"></i>--}}
-{{--                                خروج از حساب--}}
-{{--                            </a>--}}
+
                         </div>
                     </div>
                     <div class="responsive-profile-menu show-md">
@@ -186,4 +157,37 @@
         </div>
     </main>
     <!-- main -->
+
+
+        <script>
+            @forelse($errors->all() as $error)
+
+                document.addEventListener("DOMContentLoaded",function ($event){
+                    swal.fire({
+                        title: 'خطا!',
+                        icon: 'error',
+                        text: '{{$error}}',
+                        showConfirmButton: false,
+                        width: 300,
+                        height: 50
+                    })
+                });
+
+            @empty
+
+            @endforelse
+
+            @if(session('success'))
+            document.addEventListener("DOMContentLoaded",function ($event){
+                swal.fire({
+                    title: 'موفقیت!',
+                    icon: 'success',
+                    text: '{{session('success')}}',
+                    confirmButtonText: 'OK'
+                })
+            });
+            @endif
+        </script>
+
+
 @endsection

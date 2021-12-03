@@ -42,6 +42,7 @@ Route::prefix('user')->middleware('auth')->group(function () {
      Route::post('profile/updatepostalcode',[\App\Http\Controllers\user\ProfileController::class,'updatePostalCode'])->name('profile.postalcode.update');
      Route::post('profile/updateaddress',[\App\Http\Controllers\user\ProfileController::class,'updateAddress'])->name('profile.address.update');
      Route::get('profile/address/edit',[\App\Http\Controllers\user\ProfileController::class,'editAddress'])->name('profile.address.edit');
+     Route::patch('profile/avatar',[\App\Http\Controllers\user\ProfileController::class,'updateAvatar'])->name('profile.avatar.update');
 
 
     Route::get('orders',[\App\Http\Controllers\user\OrderController::class,'index'])->name('orders.index');
