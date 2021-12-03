@@ -41,8 +41,11 @@ return [
     |
     */
 
+    'namespace' => App\Models\User::class,
+
+
     'models' => [
-       // 'namespace' => 'App\\Models\\',
+//        'namespace' => 'App\\Models\\',
     ],
 
     /*

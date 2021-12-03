@@ -22,7 +22,16 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'fa_title' => $this->faker->words(),
+            'en_title' => $this->faker->randomElements(["product {$this->faker->randomNumber()} title"]),
+            'description' => $this->faker->realText(),
+            'price' => $this->faker->numberBetween(1000,100000000),
+            'discount' => $this->faker->randomNumber(),
+            'rate' => 0,
+            'view_counter' => 0,
+            'status' => 'موجود',
+
+
         ];
     }
 }

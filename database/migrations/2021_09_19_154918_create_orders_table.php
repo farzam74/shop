@@ -16,9 +16,11 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained();
-            $table->foreignIdFor(\App\Models\Cart::class)->constrained();
+            $table->enum('status',['pending','paid','approved','sent','delivered']);
+            $table->enum('payment_type',['cash','online']);
             $table->integer('price');
-            $table->string('status');
+            $table->json('info');
+            $table->string('transaction_id');
             $table->timestamps();
         });
     }

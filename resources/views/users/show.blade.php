@@ -2,6 +2,6 @@
 
 @section('content')
 
-    {{$customer->fullname}}
+    {{$user->fullname}}
 
 @endsection

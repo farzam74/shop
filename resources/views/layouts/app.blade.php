@@ -1,44 +1,5 @@
-{{--<!DOCTYPE html>--}}
-{{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
-{{--    <head>--}}
-{{--        <meta charset="utf-8">--}}
-{{--        <meta name="viewport" content="width=device-width, initial-scale=1">--}}
-{{--        <meta name="csrf-token" content="{{ csrf_token() }}">--}}
-
-{{--        <title>{{ config('app.name', 'Laravel') }}</title>--}}
-
-{{--        <!-- Fonts -->--}}
-{{--        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">--}}
-
-{{--        <!-- Styles -->--}}
-{{--        <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">--}}
-{{--        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">--}}
-{{--        <link rel="stylesheet" href="{{ asset('assets/css/now-ui-kit.css') }}">--}}
-
-{{--        <!-- Scripts -->--}}
-{{--        <script src="{{ asset('js/app.js') }}" defer></script>--}}
-{{--    </head>--}}
-{{--    <body class="font-sans antialiased">--}}
-{{--        <div class="min-h-screen bg-gray-100">--}}
-{{--            @include('layouts.navigation')--}}
-
-{{--            <!-- Page Heading -->--}}
-{{--            <header class="bg-white shadow">--}}
-{{--                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">--}}
-{{--                    {{ $header }}--}}
-{{--                </div>--}}
-{{--            </header>--}}
-
-{{--            <!-- Page Content -->--}}
-{{--            <main>--}}
-{{--                {{ $slot }}--}}
-{{--            </main>--}}
-{{--        </div>--}}
-{{--    </body>--}}
-{{--</html>--}}
-
-    <!DOCTYPE html>
-<html lang="fa">
+<!DOCTYPE html>
+<html lang="fa" >
 
 <head>
     <meta charset="utf-8"/>
@@ -47,15 +8,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>Digikala</title>
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" href={{asset('assets/fonts/font-awesome/css/font-awesome.min.css')}} />
+    <link rel="stylesheet" href="{{asset('assets/fonts/font-awesome/css/font-awesome.min.css')}}" />
     <!-- CSS Files -->
-    <link href={{asset('assets/css/bootstrap.min.css')}} rel="stylesheet"/>
-    <link href={{asset('assets/css/now-ui-kit.css')}} rel="stylesheet"/>
-    <link href={{asset('assets/css/plugins/owl.carousel.css')}} rel="stylesheet"/>
-    <link href={{asset('assets/css/plugins/owl.theme.default.min.css')}} rel="stylesheet"/>
-    <link href={{asset('assets/css/main.css')}} rel="stylesheet"/>
+    <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet"/>
+    <link href="{{asset('assets/css/now-ui-kit.css')}}" rel="stylesheet"/>
+    <link href="{{asset('assets/css/plugins/owl.carousel.css')}}" rel="stylesheet"/>
+    <link href="{{asset('assets/css/plugins/owl.theme.default.min.css')}}" rel="stylesheet"/>
+    <link href="{{asset('assets/css/main.css')}}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{asset('css/product.css')}}"/>
+
+    @livewireStyles
 </head>
 
 <body class="index-page sidebar-collapse">
@@ -309,495 +277,155 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col">
+
+
+
+                <div class="col">
+
                     <div class="user-login dropdown">
-                        <a href="#" class="btn btn-neutral dropdown-toggle" data-toggle="dropdown"
+                        @guest
+                        <a href="" class="btn btn-neutral dropdown-toggle" data-toggle="dropdown"
                            id="navbarDropdownMenuLink1">
                             ورود / ثبت نام
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
                             <div class="dropdown-item">
-                                <a class="btn btn-info">ورود به دیجی کالا</a>
+                                <a class="btn btn-info" href="{{ route('login') }}">ورود به دیجی کالا</a>
                             </div>
                             <div class="dropdown-item font-weight-bold">
-                                <span>کاربر جدید هستید؟</span> <a class="register" href="#">ثبت‌نام</a>
+                                <span>کاربر جدید هستید؟</span> <a class="register" href="{{route('register')}}">ثبت‌نام</a>
                             </div>
                         </ul>
+                        @endguest
+
+                        @auth
+                                <a href="#" class="btn btn-neutral dropdown-toggle" data-toggle="dropdown"
+                                   id="navbarDropdownMenuLink1">
+
+                                    {{ Auth::user()->name }}
+
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+                                    <div class="dropdown-item">
+                                        <a class="btn btn-info" href="{{route('profile.index')}}">مشاهده حساب کاربری</a>
+                                    </div>
+                                    <div class="dropdown-item font-weight-bold">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                            خروج
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </ul>
+                         @endauth
                     </div>
-                    <div class="cart dropdown">
+
+{{--                    {{dd(auth()->user()->cart->cartItems()->get())}}--}}
+                @auth
+                    <div class="cart dropdown d-flex justify-content-start">
                         <a href="#" class="btn dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenuLink1">
                             <i class="now-ui-icons shopping_cart-simple"></i>
                             سبد خرید
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+                            @if(auth()->user()->cart()->exists() && auth()->user()->cart()->first()->cartItems()->exists() )
                             <div class="basket-header">
                                 <div class="basket-total">
                                     <span>مبلغ کل خرید:</span>
-                                    <span> ۲۳,۵۰۰</span>
+
+                                    <span> {{number_format(auth()->user()->cart->getPriceAttribute()) }}</span>
                                     <span> تومان</span>
                                 </div>
-                                <a href="#" class="basket-link">
-                                    <span>مشاهده سبد خرید</span>
-                                    <div class="basket-arrow"></div>
-                                </a>
                             </div>
                             <ul class="basket-list">
                                 <li>
-                                    <a href="#" class="basket-item">
+                                    <a href="{{route('cart.index')}}" class="basket-item">
                                         <button class="basket-item-remove"></button>
                                         <div class="basket-item-content">
                                             <div class="basket-item-image">
-                                                <img alt="" src="assets/img/cart/2324935.jpg">
+                                                <img alt="" src="{{url('storage/'.auth()->user()->cart->cartItems()->first()->product->primary_img)}}">
                                             </div>
                                             <div class="basket-item-details">
-                                                <div class="basket-item-title">هندزفری بلوتوث مدل S530
+                                                <div class="basket-item-title">{{auth()->user()->cart->cartItems()->first()->product->fa_title}}
                                                 </div>
                                                 <div class="basket-item-params">
                                                     <div class="basket-item-props">
-                                                        <span> ۱ عدد</span>
-                                                        <span>رنگ مشکی</span>
+                                                        <span> {{auth()->user()->cart->cartItems()->first()->count}} عدد</span>
+                                                        @if(auth()->user()->cart->cartItems()->first()->color != null)
+                                                        <span>رنگ {{auth()->user()->cart->cartItems()->first()->color}}</span>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
+                                        @if(auth()->user()->cart->cartItems()->count()>1)
+                                       <div class="basket-item-title text-center">
+                                            و {{auth()->user()->cart->cartItems()->count()-1}} محصول دیگر
+                                       </div>
+                                        @endif
                                     </a>
                                 </li>
                             </ul>
-                            <a href="#" class="basket-submit">ورود و ثبت سفارش</a>
+
+                            <a href="#" class="basket-submit">نمایش همه</a>
+                            @else
+                                <div class="basket-header text-center" >سبد خرید خالی است!</div>
+                            @endif
+
                         </ul>
                     </div>
+                @endauth
                 </div>
+
             </div>
         </div>
         <nav class="main-menu">
             <div class="container">
-                <ul class="list float-right">
-                    <li class="list-item list-item-has-children mega-menu mega-menu-col-5">
-                        <a class="nav-link" href="#">کالای دیجیتال</a>
+                <ul class="list d-flex justify-content-start">
+
+                    @foreach($categories as $category)
+                        @if($category->parent_id == null)
+                        <li class="list-item list-item-has-children mega-menu mega-menu-col-5">
+                        <a class="nav-link" href="{{route('categories.show',['category' => $category->id])}}">{{$category->name}} </a>
                         <ul class="sub-menu nav">
-                            <li class="list-item list-item-has-children">
-                                <i class="now-ui-icons arrows-1_minimal-left"></i><a class="main-list-item nav-link"
-                                                                                     href="#">لوازم
-                                    جانبی گوشی</a>
-                                <ul class="sub-menu nav">
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">کیف و کاور گوشی</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">پاور بانک</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">هندزفری،هدفون</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">پایه نگهدارنده گوشی</a>
-                                    </li>
-                                    <li class="list-item list-item-has-children">
-                                        <i class="now-ui-icons arrows-1_minimal-left"></i><a
-                                            class="main-list-item nav-link" href="#">گوشی موبایل</a>
-                                        <ul class="sub-menu nav">
+
+                            @forelse($category->subCategories as $subCategory)
+
+                                <li class="list-item list-item-has-children">
+                                    <i class="now-ui-icons arrows-1_minimal-left"></i>
+                                    <a class="main-list-item nav-link" href="{{route('categories.show',['category' => $subCategory->id])}}">{{$subCategory->name}}</a>
+                                    <ul class="sub-menu nav">
+
+                                        @forelse($subCategory->subCategories as $grandSubCategory)
                                             <li class="list-item">
-                                                <a class="nav-link" href="#">آیفون اپل</a>
+                                                <a class="nav-link" href="{{route('categories.show',['category' => $grandSubCategory->id])}}">{{$grandSubCategory->name}}</a>
                                             </li>
-                                            <li class="list-item">
-                                                <a class="nav-link" href="#">هوآوی</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="list-item">
-                                        <i class="now-ui-icons arrows-1_minimal-left"></i><a
-                                            class="main-list-item nav-link" href="#">ساعت هوشمند</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <i class="now-ui-icons arrows-1_minimal-left"></i><a
-                                            class="main-list-item nav-link" href="#">اسپیکر بلوتوث و با سیم</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="list-item list-item-has-children">
-                                <i class="now-ui-icons arrows-1_minimal-left"></i><a class="main-list-item nav-link"
-                                                                                     href="#">موبایل</a>
-                                <ul class="sub-menu nav">
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Apple</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">ASUS</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">HTC</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">LG</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Nokia</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Samsung</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Sony</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="list-item list-item-has-children">
-                                <i class="now-ui-icons arrows-1_minimal-left"></i><a class="nav-link" href="#">تبلت
-                                    و کتابخوان</a>
-                                <ul class="sub-menu nav">
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Acer</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Amazon</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Apple</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">ASUS</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">HTC</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Samsung</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="list-item list-item-has-children">
-                                <i class="now-ui-icons arrows-1_minimal-left"></i><a class="nav-link"
-                                                                                     href="#">دوربین</a>
-                                <ul class="sub-menu nav">
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Canon</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Casio</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Nikon</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Sony</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="list-item list-item-has-children">
-                                <i class="now-ui-icons arrows-1_minimal-left"></i><a class="nav-link"
-                                                                                     href="#">کامپیوتر و تجهیزات
-                                    جانبی</a>
-                                <ul class="sub-menu nav">
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">هارد دیسک</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">نمایشگر</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">مادر بورد</a></li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">پردازنده</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">کارت گرافیک</a>
-                                    </li>
-                                </ul>
-                            </li>
+                                        @empty
+
+                                        @endforelse
+
+
+                                    </ul>
+                                </li>
+
+                            @empty
+
+                            @endforelse
+
+
                             <img src="assets/img/1636.png" alt="">
                         </ul>
                     </li>
-                    <li class="list-item list-item-has-children mega-menu mega-menu-col-5">
-                        <a class="nav-link" href="#">آرایشی،بهداشت و سلامت</a>
-                        <ul class="sub-menu nav">
-                            <li class="list-item list-item-has-children">
-                                <i class="now-ui-icons arrows-1_minimal-left"></i><a class="main-list-item nav-link"
-                                                                                     href="#">لوازم
-                                    جانبی گوشی</a>
-                                <ul class="sub-menu nav">
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">کیف و کاور گوشی</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">پاور بانک</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">هندزفری،هدفون</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">پایه نگهدارنده گوشی</a>
-                                    </li>
-                                    <li class="list-item list-item-has-children">
-                                        <i class="now-ui-icons arrows-1_minimal-left"></i><a
-                                            class="main-list-item nav-link" href="#">گوشی
-                                            موبایل</a>
-                                        <ul class="sub-menu nav">
-                                            <li class="list-item">
-                                                <a class="nav-link" href="#">آیفون اپل</a>
-                                            </li>
-                                            <li class="list-item">
-                                                <a class="nav-link" href="#">هوآوی</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="list-item">
-                                        <i class="now-ui-icons arrows-1_minimal-left"></i><a
-                                            class="main-list-item nav-link" href="#">ساعت
-                                            هوشمند</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <i class="now-ui-icons arrows-1_minimal-left"></i><a
-                                            class="main-list-item nav-link" href="#">اسپیکر
-                                            بلوتوث و با سیم</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="list-item list-item-has-children">
-                                <i class="now-ui-icons arrows-1_minimal-left"></i><a class="main-list-item nav-link"
-                                                                                     href="#">موبایل</a>
-                                <ul class="sub-menu nav">
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Apple</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">ASUS</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">HTC</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">LG</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Nokia</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Samsung</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Sony</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="list-item list-item-has-children">
-                                <i class="now-ui-icons arrows-1_minimal-left"></i><a class="nav-link" href="#">تبلت
-                                    و کتابخوان</a>
-                                <ul class="sub-menu nav">
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Acer</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Amazon</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Apple</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">ASUS</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">HTC</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Samsung</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="list-item list-item-has-children">
-                                <i class="now-ui-icons arrows-1_minimal-left"></i><a class="nav-link"
-                                                                                     href="#">دوربین</a>
-                                <ul class="sub-menu nav">
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Canon</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Casio</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Nikon</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Sony</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="list-item list-item-has-children">
-                                <i class="now-ui-icons arrows-1_minimal-left"></i><a class="nav-link"
-                                                                                     href="#">کامپیوتر و تجهیزات
-                                    جانبی</a>
-                                <ul class="sub-menu nav">
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">هارد دیسک</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">نمایشگر</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">مادر بورد</a></li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">پردازنده</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">کارت گرافیک</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <img src="assets/img/1636.png" alt="">
-                        </ul>
-                    </li>
-                    <li class="list-item list-item-has-children mega-menu mega-menu-col-5">
-                        <a class="nav-link" href="">خودرو،ابزار و اداری</a>
-                        <ul class="sub-menu nav">
-                            <li class="list-item list-item-has-children">
-                                <i class="now-ui-icons arrows-1_minimal-left"></i><a class="main-list-item nav-link"
-                                                                                     href="#">لوازم
-                                    جانبی گوشی</a>
-                                <ul class="sub-menu nav">
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">کیف و کاور گوشی</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">پاور بانک</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">هندزفری،هدفون</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">پایه نگهدارنده گوشی</a>
-                                    </li>
-                                    <li class="list-item list-item-has-children">
-                                        <i class="now-ui-icons arrows-1_minimal-left"></i><a
-                                            class="main-list-item nav-link" href="#">گوشی
-                                            موبایل</a>
-                                        <ul class="sub-menu nav">
-                                            <li class="list-item">
-                                                <a class="nav-link" href="#">آیفون اپل</a>
-                                            </li>
-                                            <li class="list-item">
-                                                <a class="nav-link" href="#">هوآوی</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="list-item">
-                                        <i class="now-ui-icons arrows-1_minimal-left"></i><a
-                                            class="main-list-item nav-link" href="#">ساعت
-                                            هوشمند</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <i class="now-ui-icons arrows-1_minimal-left"></i><a
-                                            class="main-list-item nav-link" href="#">اسپیکر
-                                            بلوتوث و با سیم</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="list-item list-item-has-children">
-                                <i class="now-ui-icons arrows-1_minimal-left"></i><a class="main-list-item nav-link"
-                                                                                     href="#">موبایل</a>
-                                <ul class="sub-menu nav">
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Apple</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">ASUS</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">HTC</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">LG</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Nokia</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Samsung</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Sony</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="list-item list-item-has-children">
-                                <i class="now-ui-icons arrows-1_minimal-left"></i><a class="nav-link" href="#">تبلت
-                                    و کتابخوان</a>
-                                <ul class="sub-menu nav">
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Acer</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Amazon</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Apple</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">ASUS</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">HTC</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Samsung</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="list-item list-item-has-children">
-                                <i class="now-ui-icons arrows-1_minimal-left"></i><a class="nav-link"
-                                                                                     href="#">دوربین</a>
-                                <ul class="sub-menu nav">
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Canon</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Casio</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Nikon</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">Sony</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="list-item list-item-has-children">
-                                <i class="now-ui-icons arrows-1_minimal-left"></i><a class="nav-link"
-                                                                                     href="#">کامپیوتر و تجهیزات
-                                    جانبی</a>
-                                <ul class="sub-menu nav">
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">هارد دیسک</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">نمایشگر</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">مادر بورد</a></li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">پردازنده</a>
-                                    </li>
-                                    <li class="list-item">
-                                        <a class="nav-link" href="#">کارت گرافیک</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <img src={{asset('assets/img/1636.png')}} alt="">
-                        </ul>
-                    </li>
-                    <li class="list-item">
-                        <a class="nav-link" href="#">مد و پوشاک</a>
-                    </li>
-                    <li class="list-item">
-                        <a class="nav-link" href="#">خانه و آشپزخانه</a>
-                    </li>
-                    <li class="list-item">
-                        <a class="nav-link" href="#">کتاب،لوازم تحریر</a>
-                    </li>
-                    <li class="list-item">
-                        <a class="nav-link" href="#">ورزش و سفر</a>
-                    </li>
-                    <li class="list-item">
-                        <a class="nav-link" href="#">وسایل نقلیه و صنعتی</a>
-                    </li>
+
+                    @endif
+                    @endforeach
+
                     <li class="list-item amazing-item">
                         <a class="nav-link" href="#" target="_blank">شگفت‌انگیزها</a>
                     </li>
@@ -807,13 +435,9 @@
     </header>
     <!-- header -->
 
-    <main class="main default">
-        <div class="container">
-
+{{--    {{dd(auth()->user()->cart())}}--}}
             @yield('content')
 
-        </div>
-    </main>
 
 
     <footer class="main-footer default">
@@ -1006,28 +630,27 @@
         </div>
     </footer>
 </div>
+
+<link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css" integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe" crossorigin="anonymous">
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+
+@livewireScripts
+
+
+<!-- Add sweetalert CDN -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<x-livewire-alert::scripts />
+
 </body>
-<!--   Core JS Files   -->
-<script src={{asset('assets/js/core/jquery.3.2.1.min.js')}} type="text/javascript"></script>
-<script src={{asset('assets/js/core/popper.min.js')}} type="text/javascript"></script>
-<script src={{asset('assets/js/plugins/bootstrap-switch.js')}} type="text/javascript"></script>
-<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-<script src={{asset('assets/js/plugins/bootstrap-switch.js')}}></script>
-<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-<script src={{asset('assets/js/plugins/nouislider.min.js')}} type="text/javascript"></script>
-<!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
-<script src={{asset('assets/js/plugins/bootstrap-datepicker.js')}} type="text/javascript"></script>
-<!-- Share Library etc -->
-<script src={{asset('assets/js/plugins/jquery.sharrre.js')}} type="text/javascript"></script>
-<!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
-<script src={{asset('assets/js/now-ui-kit.js')}} type="text/javascript"></script>
-<!--  CountDown -->
-<script src={{asset('assets/js/plugins/countdown.min.js')}} type="text/javascript"></script>
-<!--  Plugin for Sliders -->
-<script src={{asset('assets/js/plugins/owl.carousel.min.js')}} type="text/javascript"></script>
-<!--  Jquery easing -->
-<script src={{asset('assets/js/plugins/jquery.easing.1.3.min.js')}} type="text/javascript"></script>
-<!-- Main Js -->
-<script src={{asset('assets/js/main.js')}} type="text/javascript"></script>
+
 
 </html>

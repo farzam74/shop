@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\user;
 
-use App\Models\Order;
+use App\Http\Controllers\Controller;
+use App\Models\Dislike;
+use App\Models\Like;
 use Illuminate\Http\Request;
 
-class OrderController extends Controller
+class DisLikeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,16 +37,26 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $comment_id=$request->comment_id;
+        $user_id=auth()->user()->id;
+
+        //check if user has disliked this comment before
+        $result=Dislike::query()->where('comment_id','=',$comment_id)->where('user_id','=',$user_id)->first();
+        if($result == null){
+            Dislike::query()->create(compact('comment_id','user_id'));
+            return back();
+        }
+
+        return back()->with('disliked','شما قبلا این کامنت را دیسلایک کرده اید.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Order  $order
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show($id)
     {
         //
     }
@@ -52,10 +64,10 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Order  $order
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Order $order)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +76,10 @@ class OrderController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +87,10 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Order  $order
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy($id)
     {
         //
     }

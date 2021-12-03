@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CartItem;
+use App\Models\Rate;
 use Illuminate\Http\Request;
 
-class CartItemController extends Controller
+class RateController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class CartItemController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\CartItem  $cartItem
+     * @param  \App\Models\Rate  $rate
      * @return \Illuminate\Http\Response
      */
-    public function show(CartItem $cartItem)
+    public function show(Rate $rate)
     {
         //
     }
@@ -52,10 +52,10 @@ class CartItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\CartItem  $cartItem
+     * @param  \App\Models\Rate  $rate
      * @return \Illuminate\Http\Response
      */
-    public function edit(CartItem $cartItem)
+    public function edit(Rate $rate)
     {
         //
     }
@@ -64,10 +64,10 @@ class CartItemController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CartItem  $cartItem
+     * @param  \App\Models\Rate  $rate
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CartItem $cartItem)
+    public function update(Request $request, Rate $rate)
     {
         //
     }
@@ -75,10 +75,10 @@ class CartItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\CartItem  $cartItem
+     * @param  \App\Models\Rate  $rate
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CartItem $cartItem)
+    public function destroy(Rate $rate)
     {
         //
     }

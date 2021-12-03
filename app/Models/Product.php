@@ -22,7 +22,7 @@ class Product extends Model
         'other_atts',
         'primary_img',
         'other_img',
-        'slug'
+        'capacity'
     ];
 
 
@@ -43,12 +43,48 @@ class Product extends Model
 
     public function attributes()
     {
-        return $this->belongsToMany(Attribute::class);
+        return $this->hasMany(ProductAttribute::class);
     }
 
     public function rates()
     {
         return $this->hasMany(ProductRate::class);
     }
+
+    public function amazingOffer()
+    {
+        return $this->hasOne(AmazingOffer::class);
+    }
+
+    public function discountCode()
+    {
+        return $this->hasOne(Discount::class);
+    }
+
+    public function getFinalPriceAttribute(){
+        if($this->amazingOffer()->exists()){
+            return $this->price-(($this->amazingOffer->discount+$this->discount)/100)*$this->price;
+        }
+        else{
+            return $this->price-($this->discount/100)*$this->price;
+        }
+    }
+
+    public function getColorAttribute(){
+
+        $colors='';
+
+        foreach ($this->attributes()->get() as $productAttribute){
+            if ($productAttribute->attribute->key == 'رنگ'){
+                $hasColor=true;
+                $colors=$colors.",".$productAttribute->attribute->value;
+            }
+        }
+
+        $colors=substr($colors,1);
+
+        return $colors;
+    }
+
 
 }

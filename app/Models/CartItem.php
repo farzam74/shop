@@ -10,10 +10,10 @@ class CartItem extends Model
     use HasFactory;
 
     protected $fillable = [
-
         'count',
-        'final_price'
-
+        'product_id',
+        'cart_id',
+        'color'
     ];
 
 
@@ -25,7 +25,12 @@ class CartItem extends Model
 
     public function cart()
     {
-        return $this->hasOne(Cart::class);
+        return $this->belongsTo(Cart::class);
 
+    }
+
+    public function getPriceAttribute()
+    {
+        return $this->product->getFinalPriceAttribute()*$this->count;
     }
 }

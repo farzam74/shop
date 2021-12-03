@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\user;
 
+use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use App\Models\Like;
 use Illuminate\Http\Request;
 
-class CommentController extends Controller
+class LikeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,16 +37,27 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $comment_id=$request->comment_id;
+        $user_id=auth()->user()->id;
+
+        //check if user has liked this comment before
+        $result=Like::query()->where('comment_id','=',$comment_id)->where('user_id','=',$user_id)->first();
+        if($result == null){
+            Like::query()->create(compact('comment_id','user_id'));
+            return back();
+        }
+
+        return back()->with('liked','شما قبلا این کامنت را لایک کرده اید.');
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Comment  $comment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
+    public function show($id)
     {
         //
     }
@@ -52,10 +65,10 @@ class CommentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Comment  $comment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $comment)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +77,10 @@ class CommentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Comment  $comment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +88,10 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Comment  $comment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy($id)
     {
         //
     }

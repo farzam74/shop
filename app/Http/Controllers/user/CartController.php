@@ -1,12 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\user;
 
 use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 
 class CartController extends Controller
 {
+
+
+    public function add(Request $request)
+    {
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +24,29 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        $cartItemPrices=[];
+
+        foreach (auth()->user()->cart->cartItems as $key => $item){
+            $cartItemPrices[$key]['price']=$item->getPriceAttribute();
+            $cartItemPrices[$key]['product'] = $item->product_id;
+            $cartItemPrices[$key]['count'] = $item->count;
+        }
+        return view('users.cart',compact('cartItemPrices'));
+    }
+
+    public function factor(Request $request)
+    {
+        $price=$request->price;
+        $postalPrice=$request->postal_price;
+        $cartItemPrices=json_decode($request->cart_item_prices);
+        $cartItems=auth()->user()->cart->cartItems()->get();
+
+
+        return view('users.cart-factor')
+            ->with('price',$price)
+            ->with('postalPrice',$postalPrice)
+            ->with('cartItems',$cartItems)
+            ->with('cartItemPrices',$cartItemPrices);
     }
 
     /**

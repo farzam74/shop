@@ -10,8 +10,7 @@ class Cart extends Model
     use HasFactory;
 
     protected $fillable = [
-        'total_price',
-
+        'user_id'
     ];
 
     public function cartItems()
@@ -19,13 +18,20 @@ class Cart extends Model
         return $this->hasMany(CartItem::class);
     }
 
-    public function customer()
+    public function user()
     {
         return $this->hasOne(User::class);
     }
 
-    public function order()
+    public function getPriceAttribute()
     {
-        return $this->hasOne(Order::class);
+        $totalPrice=0;
+
+        foreach ($this->cartItems()->get() as $item)
+        {
+            $totalPrice +=$item->getPriceAttribute();
+        }
+
+        return $totalPrice;
     }
 }
